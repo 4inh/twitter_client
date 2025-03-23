@@ -37,7 +37,7 @@ const SigninModal: React.FC<SigninModalProps> = ({ isOpen, onClose }) => {
 
                 <div className="grid grid-cols-1 gap-4 mt-5 place-items-center">
                     <Button className="w-full rounded-full text-white bg-gray-500 hover:bg-blue-500 hover:text-white hover:cursor-pointer transition-all duration-300"
-                        onClick={() => navigate("/about")}>
+                        onClick={() => navigate("/home")}>
                             Đăng nhập
                     </Button>
                 <Button

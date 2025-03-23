@@ -1,15 +1,14 @@
-import MainContent from "@/components/MainContent";
-import RightSidebar from "@/components/RightSidebar";
+import MainContent from "../components/MainContent";
+import RightSidebar from "../components/RightSidebar";
 
 function HomePage() {
     return (
-        <>
-            <MainContent/>
 
+        <div className="flex flex-1">
+            <MainContent />
 
-            <RightSidebar/>
-        </>
-
+            <RightSidebar />
+        </div>
 
     );
 }

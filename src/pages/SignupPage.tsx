@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import SignupModal from "@/components/auth/SignupModal";
-import { signupSchema } from "../lib/validation";
+import { signupSchema } from "../lib/Validation";
 
 const Signup = () => {
   const [isOpen, setIsOpen] = useState(true);
