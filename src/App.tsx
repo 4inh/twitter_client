@@ -1,8 +1,13 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import HomePage from "./pages/HomePage";
 import Login from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import { BrowserRouter, Route, Routes } from "react-router-dom"; // Sửa lại import
+import Signup from "./pages/SignupPage";
+import Signin from "./pages/SigninPage";
+import ExplorePage from "./pages/ExplorePage";
+import Notifications from "./pages/Notifications";
+import MessagesPage from "./pages/MessagesPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
     return (
@@ -10,24 +15,19 @@ export default function App() {
             <Routes>
                 <Route index element={<div>Auth page</div>} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<RegisterPage />} />
+                {/* <Route path="/register" element={<RegisterPage />} /> */}
 
-                <Route
-                    path="/home"
-                    element={
-                        <MainLayout>
-                            <HomePage />
-                        </MainLayout>
-                    }
-                />
-                <Route
-                    path="/about"
-                    element={
-                        <MainLayout>
-                            <HomePage />
-                        </MainLayout>
-                    }
-                />
+                <Route path="/" element={<MainLayout />}>
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path="/explore" element={<ExplorePage />} />
+                    <Route path="/notifications" element={<Notifications />} />
+                    <Route path="/message" element={<MessagesPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                </Route>
+
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/signin" element={<Signin />} />
             </Routes>
         </BrowserRouter>
     );
