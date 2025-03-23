@@ -1,19 +1,26 @@
+import { useState } from "react";
+import SigninModal from "@/components/auth/SigninModal";
+import Logo from "@/components/ui/Logo";
 import { AuthForm } from "@/components/auth/AuthForm";
-import Logo from "../components/ui/Logo";
 
-const Login = () => {
+const LoginPage = () => {
+    const [isOpen, setIsOpen] = useState(true);
+
     return (
-        <div className="h-screen flex items-center justify-center">
-            <div className="flex max-w-5xl w-full px-6">
-                <div className="w-1/2 flex items-center justify-left">
-                    <Logo />
-                </div>
-                <div className="w-1/2 flex items-center">
-                    <AuthForm />
+        <>
+            <div className="h-screen flex items-center justify-center">
+                <div className="flex max-w-5xl w-full px-6">
+                    <div className="w-1/2 flex items-center justify-left">
+                        <Logo />
+                    </div>
+                    <div className="w-1/2 flex items-center">
+                        <AuthForm />
+                    </div>
                 </div>
             </div>
-        </div>
+            <SigninModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        </>
     );
 };
 
-export default Login;
+export default LoginPage;
