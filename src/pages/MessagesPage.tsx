@@ -1,7 +1,10 @@
+import  Messages  from "../components/Messages"
+
 const MessagesPage = () => {
     return(
-        <h1>MessagesPage</h1>
-
+        <div className="flex flex-1">
+            <Messages/>
+        </div>
     )
 }
 

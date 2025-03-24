@@ -1,7 +1,15 @@
+import FollowSuggestions from "../components/FollowSuggestions";
+import ExploreFeed from "../components/ExploreFeed";
+
 const ExplorePage = () => {
-    return (
-      <h2>Explore</h2>
-    );
-  };
-  
-  export default ExplorePage;
+  return (
+
+    <div className="flex flex-1">
+      <ExploreFeed />
+      <FollowSuggestions />
+    </div>
+
+  );
+};
+
+export default ExplorePage;

@@ -1,6 +1,12 @@
+import NotificationFeed from "../components/NotificationFeed";
+import RightSidebar from "../components/RightSidebar";
+
 const Notifications = () => {
     return (
-        <h1>Notifications</h1>
+        <div className="flex flex-1">
+            <NotificationFeed />
+            <RightSidebar />
+        </div>
     )
 }
 
