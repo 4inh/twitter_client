@@ -7,8 +7,9 @@ function MainLayout() {
             <div className="w-full max-w-7xl flex">
                 <Sidebar />
 
-                <div className="w-full overflow-auto flex p-0 h-[2000px]">
-                    <Outlet /> {/* Outlet giúp hiển thị nội dung của Route con */}
+                <div className="w-full flex p-0 ">
+                    <Outlet />{" "}
+                    {/* Outlet giúp hiển thị nội dung của Route con */}
                 </div>
             </div>
         </div>

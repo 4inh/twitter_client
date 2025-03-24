@@ -29,6 +29,7 @@ export const AuthForm = () => {
             const data = await login(email, password);
             console.log("Login successful:", data);
             setToken(data.token);
+            navigate("/home");
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 setError(err.response?.data.message || "An error occurred");
