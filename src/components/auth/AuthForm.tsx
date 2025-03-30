@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/Dialog";
 import Input from "../ui/Input";
 import { FaTwitter } from "react-icons/fa";
-import { login, setToken } from "@/api/auth";
+import { login, setToken, setUser } from "@/api/auth";
 import axios from "axios";
 import { useState } from "react";
 export const AuthForm = () => {
@@ -29,6 +29,7 @@ export const AuthForm = () => {
             const data = await login(email, password);
             console.log("Login successful:", data);
             setToken(data.token);
+            setUser(data.user);
             navigate("/home");
         } catch (err) {
             if (axios.isAxiosError(err)) {

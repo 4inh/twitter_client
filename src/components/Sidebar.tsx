@@ -7,7 +7,7 @@ const Sidebar = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="sticky top-0 h-screen bg-white shadow-md z-10  box-border overflow-y-auto overflow-x-hidden p-5">
+        <div className="sticky top-0 h-screen bg-white border-r  z-10  box-border overflow-y-auto overflow-x-hidden p-5">
             <div
                 className="w-[275px] font-bold text-xl flex items-center cursor-pointer"
                 onClick={() => navigate("/home")}

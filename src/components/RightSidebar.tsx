@@ -9,7 +9,9 @@ const RightSidebar = () => {
         const fetchTopTags = async () => {
             try {
                 const res = await getTopTags();
-                setTopTags(res);
+                if (res.data) {
+                    setTopTags(res.data);
+                }
             } catch (error) {
                 console.log("Error", error);
             }
@@ -17,7 +19,7 @@ const RightSidebar = () => {
         fetchTopTags();
     }, []);
     return (
-        <div className="w-80 bg-white p-5 shadow-md min-h-screen">
+        <div className="w-80 bg-white p-5 border-l  min-h-screen">
             <h3 className="text-lg font-bold mb-3">Những điều đang diễn ra</h3>
             <ul className="space-y-2">
                 {topTags.map((topTag) => (

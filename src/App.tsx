@@ -11,6 +11,8 @@ import {
     NotFoundPage,
     AuthPage,
 } from "./pages";
+import PostDetailPage from "./pages/Posts/PostDetailPage";
+import EditPostPage from "./pages/Posts/EditPostPage";
 export default function App() {
     return (
         <BrowserRouter>
@@ -25,7 +27,10 @@ export default function App() {
                     <Route path="/notifications" element={<Notifications />} />
                     <Route path="/message" element={<MessagesPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/posts/:id" element={<PostDetailPage />} />
+                    <Route path="/posts/:id/edit" element={<EditPostPage />} />
                 </Route>
+
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
         </BrowserRouter>

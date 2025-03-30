@@ -269,6 +269,7 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
                     zIndex: 2,
                     color: "transparent",
                     caretColor: "black", // Makes the cursor visible
+                    outline: "none",
                 }}
                 className={className}
                 placeholder={placeholder}
