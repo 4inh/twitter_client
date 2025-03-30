@@ -31,7 +31,7 @@ const MainContent = () => {
             {/* <h2 className="text-xl font-bold mb-4 px-5">Dành cho bạn</h2> */}
 
             {/* Form đăng bài */}
-            <AddPostForm />
+            {currentUser && <AddPostForm currentUser={currentUser} />}
 
             {/* Bài đăng */}
             {posts.map((post, index) => (

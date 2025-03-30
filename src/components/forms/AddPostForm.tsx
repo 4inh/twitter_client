@@ -3,6 +3,8 @@ import { IPostPayloadData } from "@/types/post";
 import { ChangeEvent, useState, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import AutoGrowTextArea from "../AutoGrowTextArea";
+import { User } from "@/types/auth";
+import { Link } from "react-router";
 
 const sampleUsers = [
     {
@@ -43,7 +45,7 @@ interface MediaFile {
     type: string;
 }
 
-const AddPostForm = () => {
+const AddPostForm = ({ currentUser }: { currentUser: User }) => {
     const [text, setText] = useState<string>("");
     const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -139,10 +141,12 @@ const AddPostForm = () => {
 
     return (
         <div className="p-5 flex gap-4 ">
-            <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            <Link to={`/profile`}>
+                <Avatar>
+                    <AvatarImage src={currentUser.avatar} />
+                    <AvatarFallback>{currentUser.email.at(0)}</AvatarFallback>
+                </Avatar>
+            </Link>
             <div className="w-full flex flex-col gap-2">
                 <AutoGrowTextArea
                     value={text}

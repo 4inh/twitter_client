@@ -6,6 +6,12 @@ export const getPosts = async (): Promise<FormDataResponse<IPost[]>> => {
     const response = await apiClient.get("/posts");
     return response.data;
 };
+
+export const getPostsMe = async (): Promise<FormDataResponse<IPost[]>> => {
+    const response = await apiClient.get("/posts/me");
+    return response.data;
+};
+
 export const getPost = async (
     postId: string
 ): Promise<FormDataResponse<IPost>> => {

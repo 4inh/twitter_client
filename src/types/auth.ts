@@ -9,4 +9,20 @@ export interface User {
     email: string;
     role: "admin" | "user";
     avatar: string;
+    displayName: string;
+    createdAt: string;
+}
+
+export interface IUser {
+    profileBackground: string;
+    friends: any[];
+    _id: string;
+    username: string;
+    email: string;
+    profilePicture: string;
+    role: "admin" | "user";
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    displayName: string;
 }

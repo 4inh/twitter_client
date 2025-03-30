@@ -1,17 +1,17 @@
 import Profile from "../components/Profile";
-import FollowSuggestions from "../components/FollowSuggestions";
+// import FollowSuggestions from "../components/FollowSuggestions";
 import RightSidebar from "../components/RightSidebar";
 
 const ProfilePage = () => {
-    return(
+    return (
         <div className="flex flex-1">
-            <Profile/>
-          <div className="">
+            <Profile />
+            {/* <div className="">
           <FollowSuggestions/>
-          <RightSidebar/>
-          </div>
+          </div> */}
+            <RightSidebar />
         </div>
-    )
-}
+    );
+};
 
-export default ProfilePage
+export default ProfilePage;
