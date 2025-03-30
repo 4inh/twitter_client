@@ -4,25 +4,21 @@ export interface ILogin {
 }
 
 export interface User {
-    id: string;
-    username: string;
-    email: string;
-    role: "admin" | "user";
-    avatar: string;
-    displayName: string;
-    createdAt: string;
-}
-
-export interface IUser {
-    profileBackground: string;
-    friends: any[];
     _id: string;
     username: string;
     email: string;
+    displayName?: string;
     profilePicture: string;
-    role: "admin" | "user";
+    profileBackground: string;
+    role: "user" | "admin";
+}
+export type Friend = Pick<
+    User,
+    "username" | "displayName" | "profilePicture" | "email" | "_id"
+>;
+export interface IUser extends User {
+    friends: Friend[];
     createdAt: string;
     updatedAt: string;
     __v: number;
-    displayName: string;
 }

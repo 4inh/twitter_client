@@ -17,7 +17,9 @@ import { setUser } from "@/api/auth";
 
 export function EditProfileForm({ currentUser }: { currentUser: User }) {
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const [displayName, setDisplayName] = useState(currentUser.displayName);
+    const [displayName, setDisplayName] = useState<string>(
+        currentUser.displayName ?? ""
+    );
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const handleMediaClick = () => {
@@ -44,11 +46,11 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
             if (res.data) {
                 const user = res.data;
                 const prepare: User = {
-                    avatar: user.profilePicture,
-                    createdAt: user.createdAt,
+                    profilePicture: user.profilePicture,
+                    profileBackground: user.profileBackground,
                     displayName: user.displayName,
                     email: user.email,
-                    id: user._id,
+                    _id: user._id,
                     role: user.role,
                     username: user.username,
                 };
@@ -81,7 +83,7 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                                     src={
                                         selectedFile
                                             ? URL.createObjectURL(selectedFile)
-                                            : currentUser?.avatar
+                                            : currentUser?.profilePicture
                                     }
                                 />
                                 <AvatarFallback>

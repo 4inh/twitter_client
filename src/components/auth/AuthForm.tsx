@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/Dialog";
 import Input from "../ui/Input";
 import { FaTwitter } from "react-icons/fa";
-import { login, setToken, setUser } from "@/api/auth";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "@/context/auth/AuthContext";
 export const AuthForm = () => {
     const navigate = useNavigate();
     // const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -19,17 +19,14 @@ export const AuthForm = () => {
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-
+    const { login } = useContext(AuthContext);
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError(null);
 
         try {
-            const data = await login(email, password);
-            console.log("Login successful:", data);
-            setToken(data.token);
-            setUser(data.user);
+            await login(email, password);
             navigate("/home");
         } catch (err) {
             if (axios.isAxiosError(err)) {

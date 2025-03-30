@@ -1,15 +1,14 @@
+import { User } from "@/types/auth";
 import React, { useState } from "react";
-
-interface User {
-    id: number;
-    name: string;
-    username: string;
-    avatar: string;
-}
 
 const Messages = () => {
     const [friends, setFriends] = useState<User[]>([
-        { id: 1, name: "BTS A.R.M.Y", username: "@BTS_ARMY", avatar: "https://via.placeholder.com/50" },
+        {
+            id: 1,
+            name: "BTS A.R.M.Y",
+            username: "@BTS_ARMY",
+            avatar: "https://via.placeholder.com/50",
+        },
     ]);
     const [selectedChat, setSelectedChat] = useState<User | null>(null);
     const [message, setMessage] = useState("");
@@ -30,19 +29,30 @@ const Messages = () => {
                     friends.map((friend) => (
                         <div
                             key={friend.id}
-                            className={`mt-2 p-3 flex items-center space-x-3 cursor-pointer rounded-full ${selectedChat?.id === friend.id ? "bg-blue-100" : "hover:bg-gray-200"
-                                }`}
+                            className={`mt-2 p-3 flex items-center space-x-3 cursor-pointer rounded-full ${
+                                selectedChat?.id === friend.id
+                                    ? "bg-blue-100"
+                                    : "hover:bg-gray-200"
+                            }`}
                             onClick={() => setSelectedChat(friend)}
                         >
-                            <img src={friend.avatar} alt={friend.name} className="w-10 h-10 rounded-full" />
+                            <img
+                                src={friend.avatar}
+                                alt={friend.name}
+                                className="w-10 h-10 rounded-full"
+                            />
                             <div>
                                 <h4 className="font-semibold">{friend.name}</h4>
-                                <p className="text-gray-500 text-sm">{friend.username}</p>
+                                <p className="text-gray-500 text-sm">
+                                    {friend.username}
+                                </p>
                             </div>
                         </div>
                     ))
                 ) : (
-                    <p className="text-gray-500 text-center">Bạn chưa có tin nhắn nào.</p>
+                    <p className="text-gray-500 text-center">
+                        Bạn chưa có tin nhắn nào.
+                    </p>
                 )}
             </div>
 
@@ -52,12 +62,20 @@ const Messages = () => {
                     <>
                         {/* Header */}
                         <div className="p-4 border-b flex items-center">
-                            <img src={selectedChat.avatar} alt={selectedChat.name} className="w-10 h-10 rounded-full mr-3" />
-                            <h2 className="text-lg font-semibold">{selectedChat.name}</h2>
+                            <img
+                                src={selectedChat.avatar}
+                                alt={selectedChat.name}
+                                className="w-10 h-10 rounded-full mr-3"
+                            />
+                            <h2 className="text-lg font-semibold">
+                                {selectedChat.name}
+                            </h2>
                         </div>
 
                         {/* Chat content */}
-                        <div className="flex-1 p-4 overflow-y-auto">Tin nhắn sẽ hiển thị ở đây...</div>
+                        <div className="flex-1 p-4 overflow-y-auto">
+                            Tin nhắn sẽ hiển thị ở đây...
+                        </div>
 
                         {/* Message input */}
                         <div className="p-4 border-t flex items-center">
@@ -68,7 +86,9 @@ const Messages = () => {
                                 placeholder="Start a new message"
                                 className="w-full p-2 border rounded-lg"
                             />
-                            <button className="ml-3 p-2 bg-blue-500 text-white rounded-lg">Send</button>
+                            <button className="ml-3 p-2 bg-blue-500 text-white rounded-lg">
+                                Send
+                            </button>
                         </div>
                     </>
                 ) : (

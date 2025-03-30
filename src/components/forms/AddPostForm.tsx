@@ -1,5 +1,5 @@
 import { addPost } from "@/api/post";
-import { IPostPayloadData } from "@/types/post";
+
 import { ChangeEvent, useState, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import AutoGrowTextArea from "../AutoGrowTextArea";
@@ -143,7 +143,7 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
         <div className="p-5 flex gap-4 ">
             <Link to={`/profile`}>
                 <Avatar>
-                    <AvatarImage src={currentUser.avatar} />
+                    <AvatarImage src={currentUser.profileBackground} />
                     <AvatarFallback>{currentUser.email.at(0)}</AvatarFallback>
                 </Avatar>
             </Link>

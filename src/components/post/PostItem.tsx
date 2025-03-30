@@ -25,10 +25,10 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
     const navigation = useNavigate();
     const [dialogOpen, setDialogOpen] = useState(false);
     const [isLiked, setIsLiked] = useState<boolean>(
-        !!post.likes.find((like) => like._id === user?.id)
+        !!post.likes.find((like) => like._id === user?._id)
     );
     const isPostOfCurrentUser = useMemo(
-        () => user?.id === post.author._id,
+        () => user?._id === post.author._id,
         [post, user]
     );
     const isAdmin = useMemo(() => user?.role === "admin", [user]);
