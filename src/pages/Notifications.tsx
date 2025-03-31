@@ -7,7 +7,7 @@ const Notifications = () => {
             <NotificationFeed />
             <RightSidebar />
         </div>
-    )
-}
+    );
+};
 
-export default Notifications
+export default Notifications;

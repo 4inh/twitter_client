@@ -1,6 +1,25 @@
 import { ILogin, User } from "@/types/auth";
 import apiClient from "./apiClient";
+// POST http://localhost:5000/api/auth/register
+// Content-Type: application/json
 
+// {
+//     "username": "linh05",
+//     "password": "123456",
+//     "email" : "linh05@123.com"
+// }
+export const register = async (
+    email: string,
+    password: string,
+    username: string
+): Promise<ILogin> => {
+    const response = await apiClient.post("/auth/register", {
+        email,
+        password,
+        username,
+    });
+    return response.data;
+};
 export const login = async (
     email: string,
     password: string

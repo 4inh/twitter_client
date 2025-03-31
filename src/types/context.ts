@@ -7,6 +7,11 @@ export interface AuthContextType {
     loading: boolean;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
+    register: (
+        email: string,
+        password: string,
+        username: string
+    ) => Promise<void>;
 }
 
 export interface ChatContextType {

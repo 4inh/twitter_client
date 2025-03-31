@@ -1,26 +1,68 @@
-import React from "react";
+import { getNotifications } from "@/api/notifications";
+import { AuthContext } from "@/context/auth/AuthContext";
+import { INotification } from "@/types/notification";
+import { useContext } from "react";
+import { useEffect, useState } from "react";
+import io from "socket.io-client";
+
+const socket = io("http://localhost:5000");
+
+// interface Notification {
+//     message: string;
+//     postId: string;
+// }
 
 const NotificationFeed = () => {
-    const notifications = [
-        { id: 1, message: "There was a login to your account @tran_tuan23050 from a new device on 24 thg 3, 2025. Review it now." },
-        { id: 2, message: "There was a login to your account @tran_tuan23050 from a new device on 22 thg 3, 2025. Review it now." },
-        { id: 3, message: "There was a login to your account @tran_tuan23050 from a new device on 17 thg 3, 2025. Review it now." },
-        { id: 4, message: "There was a login to your account @tran_tuan23050 from a new device on 16 thg 3, 2025. Review it now." },
-        { id: 5, message: "There was a login to your account @tran_tuan23050 from a new device on 15 thg 3, 2025. Review it now." },
-    ];
+    const [notifications, setNotifications] = useState<INotification[]>([]);
+    const { currentUser } = useContext(AuthContext);
+    useEffect(() => {
+        if (!currentUser) return;
+        socket.emit("join", currentUser._id);
 
+        socket.on("notification", (data) => {
+            console.log({ data });
+
+            // setNotifications((prev) => [data, ...prev]);
+        });
+
+        return () => {
+            socket.off("notification");
+        };
+    }, [currentUser]);
+    useEffect(() => {
+        const fetchNotifications = async () => {
+            try {
+                const res = await getNotifications();
+                console.log(res);
+                if (res.data) {
+                    setNotifications(res.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchNotifications();
+    }, []);
     return (
-
         <div className="w-2/3 p-4 border-r border-gray-300 mx-auto">
-            <h2 className="text-xl font-bold mb-4">Thông báo</h2>
-            <div className="mt-4 space-y-3 hover:cursor-pointer">
-                {notifications.map((notif) => (
-                    <div key={notif.id} className="flex items-center p-3 border-b">
-                        <span className="text-2xl mr-3">❌</span>
-                        <p className="text-sm text-gray-700">{notif.message}</p>
-                    </div>
-                ))}
-            </div>
+            <h2 className="text-xl font-bold mb-4 ">Thông báo</h2>
+            <ul className="mt-4 space-y-3  list-none">
+                {notifications.length > 0 ? (
+                    notifications.map((notification, index) => (
+                        <div key={index}>
+                            <p>
+                                From{" "}
+                                <span className="text-blue-500">
+                                    {notification.senderId.username}
+                                </span>
+                            </p>
+                            <p className="text-md">{notification.message}</p>
+                        </div>
+                    ))
+                ) : (
+                    <li>Không có thông báo</li>
+                )}
+            </ul>
         </div>
     );
 };

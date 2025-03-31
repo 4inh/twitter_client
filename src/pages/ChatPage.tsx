@@ -6,7 +6,7 @@ import MessageInput from "../components/MessageInput";
 
 const ChatPage: React.FC = () => {
     return (
-        <div className="flex h-screen">
+        <div className="flex-1 flex h-screen">
             <FriendsList />
             <div className="flex-1 flex flex-col">
                 <ChatHeader />

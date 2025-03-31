@@ -3,11 +3,11 @@ import MainLayout from "./layouts/MainLayout";
 import {
     HomePage,
     ExplorePage,
-    LoginPage,
+    // LoginPage,
     // MessagesPage,
     Notifications,
     ProfilePage,
-    RegisterPage,
+    // RegisterPage,
     NotFoundPage,
     AuthPage,
 } from "./pages";
@@ -25,8 +25,8 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route index element={<AuthPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/register" element={<RegisterPage />} />
+                    {/* <Route path="/login" element={<AuthPage />} /> */}
+                    {/* <Route path="/register" element={<RegisterPage />} /> */}
 
                     <Route path="/" element={<MainLayout />}>
                         <Route path="/home" element={<HomePage />} />
