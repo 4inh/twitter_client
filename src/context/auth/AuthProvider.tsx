@@ -7,6 +7,7 @@ import {
     setToken as setSessionToken,
     login as authLogin,
     setUser as setSessionUser,
+    register as authRegister,
 } from "@/api/auth";
 import { getUserMe } from "@/api/user";
 import { AuthContext } from "./AuthContext";
@@ -43,6 +44,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setToken(res.token);
         setCurrentUser(res.user);
     };
+    const register = async (
+        email: string,
+        password: string,
+        username: string
+    ) => {
+        const res = await authRegister(email, password, username);
+        setSessionToken(res.token);
+        setSessionUser(res.user);
+        setToken(res.token);
+        setCurrentUser(res.user);
+    };
 
     const logout = () => {
         removeToken();
@@ -52,7 +64,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
     return (
         <AuthContext.Provider
-            value={{ currentUser, token, loading, login, logout }}
+            value={{ currentUser, token, loading, login, logout, register }}
         >
             {children}
         </AuthContext.Provider>
