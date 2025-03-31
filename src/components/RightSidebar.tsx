@@ -28,7 +28,7 @@ const RightSidebar = () => {
                     </li>
                 ))}
             </ul>
-            <button className="mt-5 w-full bg-blue-500 text-white py-2 rounded-lg">
+            <button className="mt-5 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-800">
                 Hiển thị thêm
             </button>
         </div>

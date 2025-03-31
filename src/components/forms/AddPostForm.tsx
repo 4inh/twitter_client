@@ -140,7 +140,7 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
     };
 
     return (
-        <div className="p-5 flex gap-4 ">
+        <div className="p-5 flex gap-4 border-transparent">
             <Link to={`/profile`}>
                 <Avatar>
                     <AvatarImage src={currentUser.profileBackground} />
@@ -153,6 +153,7 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
                     onChange={handleChange}
                     users={sampleUsers}
                     placeholder="Chuyện gì đang xảy ra?"
+                    className="border-b border-gray-500 hover:border-b-2 transition-all duration-100"
                 />
 
                 {/* Media files preview */}
@@ -222,7 +223,7 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
                     />
 
                     <button
-                        className="text-blue-500 p-2"
+                        className="text-black-500 p-2 border border-black-500 rounded-lg hover:text-blue-500 hover:border-blue-500"
                         id="add-media-btn"
                         onClick={handleMediaClick}
                     >
@@ -250,12 +251,16 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
                         </svg>
                     </button>
                     <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded-full"
+                        className={`px-4 py-2 rounded-full transition-all ${text.trim().length > 0
+                                ? "bg-blue-500 text-white hover:bg-blue-600"
+                                : "bg-gray-300 text-gray-500"
+                            }`}
                         onClick={handleSubmit}
-                        disabled={isLoading}
+                        disabled={isLoading || text.trim().length === 0}
                     >
                         Đăng
                     </button>
+
                 </div>
             </div>
         </div>
