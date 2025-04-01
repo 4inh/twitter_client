@@ -48,10 +48,10 @@ export const RegisterForm = () => {
 
     return (
         <Dialog>
-            <DialogTrigger>
-                <Button className="w-100 bg-blue-500 text-white rounded-full hover:text-blue-500 hover:bg-blue-100 hover:cursor-pointer">
+            <DialogTrigger className="w-full">
+                <span className="w-full block px-4 py-2 bg-blue-500 text-white rounded-full hover:text-blue-500 hover:bg-blue-100 hover:cursor-pointer">
                     Tạo tài khoản
-                </Button>
+                </span>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

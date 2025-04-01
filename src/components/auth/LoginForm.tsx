@@ -41,14 +41,14 @@ export const LoginForm = () => {
 
     return (
         <Dialog>
-            <DialogTrigger>
-                <Button
-                    variant="outline"
-                    className="rounded-full w-100 text-blue-500 hover:bg-blue-500 hover:text-white hover:cursor-pointer"
+            <DialogTrigger className="w-full">
+                <span
+                    // variant="outline"
+                    className="block w-full px-4 py-2 rounded-full  text-blue-500 hover:bg-blue-500 hover:text-white hover:cursor-pointer"
                     // onClick={() => setIsOpen(true)}
                 >
                     Đăng nhập
-                </Button>
+                </span>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

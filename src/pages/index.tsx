@@ -4,6 +4,5 @@ export { default as RegisterPage } from "@/pages/RegisterPage";
 export { default as NotFoundPage } from "@/pages/NotFoundPage";
 export { default as ExplorePage } from "@/pages/ExplorePage";
 export { default as Notifications } from "@/pages/Notifications";
-export { default as MessagesPage } from "@/pages/MessagesPage";
 export { default as ProfilePage } from "@/pages/ProfilePage";
 export { default as AuthPage } from "@/pages/AuthPage";

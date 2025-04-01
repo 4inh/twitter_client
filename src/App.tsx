@@ -3,11 +3,8 @@ import MainLayout from "./layouts/MainLayout";
 import {
     HomePage,
     ExplorePage,
-    // LoginPage,
-    // MessagesPage,
     Notifications,
     ProfilePage,
-    // RegisterPage,
     NotFoundPage,
     AuthPage,
 } from "./pages";

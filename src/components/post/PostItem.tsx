@@ -53,7 +53,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
         }
     };
     return (
-        <div className="p-5  ">
+        <div className="p-5">
             <div className="flex justify-between">
                 <h3 className="font-bold">{post.author.username}</h3>
                 <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -124,16 +124,18 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                 </Dialog>
             </div>
 
-            <p className="text-start">{post.content}</p>
-            {post.media.map((source) => (
-                <div key={source}>
-                    <img
-                        src={source}
-                        alt={source}
-                        className="w-full rounded-lg mt-2"
-                    />
-                </div>
-            ))}
+            <p className="text-start mb-4">{post.content}</p>
+            <div className="flex flex-col gap-2 overflow-hidden rounded-lg shadow-sm">
+                {post.media.map((source) => (
+                    <div key={source}>
+                        <img
+                            src={source}
+                            alt={source}
+                            className="w-full rounded-lg "
+                        />
+                    </div>
+                ))}
+            </div>
             <div className="flex items-center justify-between py-2">
                 {/* Comments Button */}
                 <div className="flex gap-1" role="button">
