@@ -18,7 +18,8 @@ import { deletePost, likePost } from "@/api/post";
 import { User } from "@/types/auth";
 import { IPost } from "@/types/post";
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
 
 function PostItem({ post, user }: { post: IPost; user: User | null }) {
     const [open, setOpen] = useState(false);
@@ -55,7 +56,26 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
     return (
         <div className="p-5 hover:bg-gray-100 hover:cursor-pointer">
             <div className="flex justify-between">
-                <h3 className="font-bold text-3xl">{post.author.username}</h3>
+                <Link
+                    className="flex items-center  gap-2 mb-5"
+                    to={`/profile/${post.author._id}`}
+                    role="button"
+                >
+                    <Avatar className="size-10">
+                        <AvatarImage src={post.author.profilePicture} />
+                        <AvatarFallback>
+                            {post.author.username.at(0)}
+                        </AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col">
+                        <h3 className="font-semibold text-xl">
+                            {post.author.username}
+                        </h3>
+                        <p className=" text-md text-gray-500">
+                            {post.author.email}
+                        </p>
+                    </div>
+                </Link>
                 <DropdownMenu open={open} onOpenChange={setOpen}>
                     <DropdownMenuTrigger asChild>
                         <button
