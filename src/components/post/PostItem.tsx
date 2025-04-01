@@ -53,15 +53,15 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
         }
     };
     return (
-        <div className="p-5 hover:bg-gray-100 ho">
+        <div className="p-5 hover:bg-gray-100 hover:cursor-pointer">
             <div className="flex justify-between">
-                <h3 className="font-bold text-3xl hover:cursor-pointer">
+                <h3 className="font-bold text-3xl">
                     {post.author.username}</h3>
                 <DropdownMenu open={open} onOpenChange={setOpen}>
                     <DropdownMenuTrigger asChild>
                         <button
                             role="button"
-                            className="w-12 h-12 text-md hover:cursor-pointer hover:rounded-full hover:bg-blue-100"
+                            className="w-12 h-12 text-md hover:rounded-full hover:bg-blue-100"
                         >
                             •••
                         </button>
