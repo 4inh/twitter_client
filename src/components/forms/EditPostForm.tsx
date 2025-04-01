@@ -1,6 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import AutoGrowTextArea from "../AutoGrowTextArea";
+import { Link } from "react-router";
+import { User } from "@/types/auth";
 
 interface MediaFile {
     file?: File;
@@ -12,12 +14,14 @@ interface EditPostFormProps {
     initialText: string;
     initialMediaFiles: string[];
     onSubmit: (text: string, mediaFiles: (File | string)[]) => Promise<void>;
+    currentUser: User;
 }
 
 const EditPostForm = ({
     initialText,
     initialMediaFiles,
     onSubmit,
+    currentUser,
 }: EditPostFormProps) => {
     const [text, setText] = useState<string>(initialText);
     const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
@@ -90,10 +94,12 @@ const EditPostForm = ({
 
     return (
         <div className="py-4 flex gap-4">
-            <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            <Link to={`/profile/${currentUser._id}`}>
+                <Avatar>
+                    <AvatarImage src={currentUser.profilePicture} />
+                    <AvatarFallback>{currentUser.email.at(0)}</AvatarFallback>
+                </Avatar>
+            </Link>
             <div className="w-full flex flex-col gap-2">
                 <AutoGrowTextArea
                     value={text}

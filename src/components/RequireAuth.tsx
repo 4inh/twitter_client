@@ -13,7 +13,7 @@ const RequireAuth: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     }
 
     if (!currentUser) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/" />;
     }
 
     return <>{children}</>;

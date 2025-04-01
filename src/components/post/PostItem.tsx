@@ -69,7 +69,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                     </Avatar>
                     <div className="flex flex-col">
                         <h3 className="font-semibold text-xl">
-                            {post.author.username}
+                            {post.author?.displayName}
                         </h3>
                         <p className=" text-md text-gray-500">
                             {post.author.email}

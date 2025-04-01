@@ -65,13 +65,14 @@ const EditPostPage = () => {
 
             {isLoading ? (
                 <p>Loading ...</p>
-            ) : post ? (
+            ) : post && currentUser ? (
                 <EditPostForm
                     initialMediaFiles={post.media}
                     initialText={post.content}
                     onSubmit={(text, mediaFiles) =>
                         handleUpdatePost({ text, mediaFiles })
                     }
+                    currentUser={currentUser}
                 />
             ) : (
                 <p>No post</p>

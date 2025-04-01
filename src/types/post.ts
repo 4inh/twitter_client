@@ -20,6 +20,7 @@ export interface Author {
     username: string;
     email: string;
     profilePicture: string;
+    displayName: string?;
 }
 
 export interface Like {
