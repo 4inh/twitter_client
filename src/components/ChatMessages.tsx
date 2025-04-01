@@ -13,7 +13,7 @@ const ChatMessages: React.FC = () => {
 
     if (!activeChat) {
         return (
-            <div className="w-120 flex-1 flex items-center justify-center bg-gray-50">
+            <div className="flex-1 flex items-center justify-center bg-gray-50">
                 <div className="text-center text-gray-500">
                     <svg
                         className="w-16 h-16 mx-auto text-gray-400"
