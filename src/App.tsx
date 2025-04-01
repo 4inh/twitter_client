@@ -42,6 +42,10 @@ export default function App() {
                         />
 
                         <Route path="/profile" element={<ProfilePage />} />
+                        <Route
+                            path="/profile/:userId"
+                            element={<ProfilePage />}
+                        />
                         <Route path="/posts/:id" element={<PostDetailPage />} />
                         <Route
                             path="/posts/:id/edit"

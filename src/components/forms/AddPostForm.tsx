@@ -141,7 +141,7 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
 
     return (
         <div className="p-5 flex gap-4 border-transparent">
-            <Link to={`/profile`}>
+            <Link to={`/profile/${currentUser._id}`}>
                 <Avatar>
                     <AvatarImage src={currentUser.profileBackground} />
                     <AvatarFallback>{currentUser.email.at(0)}</AvatarFallback>
@@ -251,16 +251,16 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
                         </svg>
                     </button>
                     <button
-                        className={`px-4 py-2 rounded-full transition-all ${text.trim().length > 0
+                        className={`px-4 py-2 rounded-full transition-all ${
+                            text.trim().length > 0
                                 ? "bg-blue-500 text-white hover:bg-blue-600"
                                 : "bg-gray-300 text-gray-500"
-                            }`}
+                        }`}
                         onClick={handleSubmit}
                         disabled={isLoading || text.trim().length === 0}
                     >
                         Đăng
                     </button>
-
                 </div>
             </div>
         </div>

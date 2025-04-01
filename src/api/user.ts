@@ -3,7 +3,6 @@ import apiClient from "./apiClient";
 import { FormDataResponse } from "@/types";
 
 import axios from "axios";
-import { User } from "@/types/auth";
 
 export const editProfile = async (
     payload: FormData
@@ -17,6 +16,13 @@ export const editProfile = async (
     return response.data;
 };
 
+export const getUser = async (
+    userId: string
+): Promise<FormDataResponse<IUser>> => {
+    const response = await apiClient.get(`/users/${userId}`);
+    return response.data;
+};
+
 export const getUserMe = async (): Promise<FormDataResponse<IUser>> => {
     const response = await apiClient.get("/users/me");
     return response.data;
@@ -24,6 +30,12 @@ export const getUserMe = async (): Promise<FormDataResponse<IUser>> => {
 
 export const getFriends = async (): Promise<FormDataResponse<Friend[]>> => {
     const response = await apiClient.get("/users/friends");
+    return response.data;
+};
+export const addRemoveFriend = async (
+    userId: string
+): Promise<FormDataResponse<IUser>> => {
+    const response = await apiClient.post(`/users/friends/${userId}`);
     return response.data;
 };
 

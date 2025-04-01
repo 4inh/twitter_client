@@ -44,7 +44,7 @@ export const LoginForm = () => {
             <DialogTrigger className="w-full">
                 <span
                     // variant="outline"
-                    className="block w-full px-4 py-2 rounded-full  text-blue-500 hover:bg-blue-500 hover:text-white hover:cursor-pointer"
+                    className="border border-blue-500 block w-full px-4 py-2 rounded-full  text-blue-500 hover:bg-blue-500 hover:text-white hover:cursor-pointer"
                     // onClick={() => setIsOpen(true)}
                 >
                     Đăng nhập

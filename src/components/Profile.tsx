@@ -1,41 +1,91 @@
-import { getUser } from "@/api/auth";
+import { getUser as getUserSession } from "@/api/auth";
 import React, { useEffect, useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { IPost } from "@/types/post";
-import { getPostsMe } from "@/api/post";
+import { getPostsMe, getPostsOfUser } from "@/api/post";
 import PostItem from "./post/PostItem";
 import { EditProfileForm } from "./forms/EditProfileForm";
+import { IUser } from "@/types/auth";
+import { addRemoveFriend, getUser, getUserMe } from "@/api/user";
 
 const Profile = () => {
     const navigation = useNavigate();
     const currentUser = useMemo(() => {
-        return getUser();
+        return getUserSession();
     }, []);
+    const param = useParams();
+    const [user, setUser] = useState<IUser | null>(null);
+
     const [postsOfCurrentUser, setPostsOfCurrentUser] = useState<IPost[]>([]);
     const { joinedMonth, joinedYear } = useMemo(() => {
-        const date = currentUser
-            ? new Date(currentUser?.createdAt)
-            : new Date();
+        const date = user ? new Date(user?.createdAt) : new Date();
         const joinedMonth = date.getMonth() + 1;
         const joinedYear = date.getFullYear();
         return { joinedMonth, joinedYear };
-    }, [currentUser]);
-    console.log({ currentUser });
+    }, [user]);
 
+    const isFollowed = useMemo(() => {
+        if (!user || !currentUser) return false;
+        return user.friends
+            .map((friend) => friend._id)
+            .includes(currentUser?._id);
+    }, [user, currentUser]);
+    const handleFollow = async () => {
+        if (!user) {
+            console.log("Missing user at follow");
+
+            return;
+        }
+        try {
+            const res = await addRemoveFriend(user._id);
+            if (!res.data) {
+                console.log("missing data at add remove friend");
+                return;
+            }
+            navigation(0);
+            // setUser(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchUser = async () => {
             try {
-                const postData = await getPostsMe();
-                if (postData.data) {
-                    setPostsOfCurrentUser(postData.data);
+                if (param.userId) {
+                    const res = await getUser(param.userId);
+                    if (!res.data) {
+                        console.log("Missing data at get user");
+
+                        return;
+                    }
+                    setUser(res.data);
+                    const posts = await getPostsOfUser(param.userId);
+                    if (!posts.data) {
+                        console.log("Missing data at getPostsOfUser");
+
+                        return;
+                    }
+                    setPostsOfCurrentUser(posts.data);
+                } else {
+                    const res = await getUserMe();
+                    if (!res.data) {
+                        console.log("Missing data at get user me");
+
+                        return;
+                    }
+                    setUser(res.data);
+                    const postData = await getPostsMe();
+                    if (postData.data) {
+                        setPostsOfCurrentUser(postData.data);
+                    }
                 }
             } catch (error) {
-                console.log("Error", error);
+                console.log(error);
             }
         };
-        fetchPosts();
-    }, []);
+        fetchUser();
+    }, [param.userId]);
     return (
         <div className="flex-1 bg-white">
             <div className="sticky z-50 top-0 left-0 w-full bg-white shadow-xs">
@@ -43,7 +93,7 @@ const Profile = () => {
                     <button onClick={() => navigation(-1)}>back</button>
                     <div className="flex flex-col">
                         <h2 className="text-xl font-semibold">
-                            {currentUser?.displayName}
+                            {user?.displayName}
                         </h2>
                         <p>{postsOfCurrentUser.length} posts</p>
                     </div>
@@ -59,30 +109,32 @@ const Profile = () => {
                     <div className="relative w-full">
                         <div className="absolute top-0 left-0 w-full -translate-y-1/2">
                             <Avatar className="min-w-12 w-1/4 h-[unset] aspect-square border-4 border-black">
-                                <AvatarImage src={currentUser?.avatar} />
+                                <AvatarImage src={user?.profilePicture} />
                                 <AvatarFallback>
-                                    {currentUser?.email.at(0)}
+                                    {user?.email.at(0)}
                                 </AvatarFallback>
                             </Avatar>
                         </div>
                     </div>
 
                     <div className="flex justify-end items-center min-w-[150px] h-[36px] max-w-full mb-4">
-                        {currentUser && (
-                            <EditProfileForm currentUser={currentUser} />
+                        {user && currentUser?._id == user?._id ? (
+                            <EditProfileForm currentUser={user} />
+                        ) : (
+                            <button
+                                className=" px-4 py-2 border rounded-full text-sm font-medium hover:bg-gray-200"
+                                onClick={handleFollow}
+                            >
+                                {isFollowed ? "Hủy theo dõi" : "Theo dõi"}
+                            </button>
                         )}
-                        {/* <button className=" px-4 py-2 border rounded-full text-sm font-medium hover:bg-gray-200">
-                            Chỉnh sửa hồ sơ
-                        </button> */}
                     </div>
                 </div>
 
                 {/* Profile Info */}
                 <div className="py-4 ">
-                    <h2 className="text-2xl font-bold">
-                        {currentUser?.displayName}
-                    </h2>
-                    <p className="text-gray-500">{currentUser?.email}</p>
+                    <h2 className="text-2xl font-bold">{user?.displayName}</h2>
+                    <p className="text-gray-500">{user?.email}</p>
                     <p className="text-gray-500 text-sm">
                         📅 Tham gia tháng {joinedMonth} năm {joinedYear}
                     </p>
@@ -117,7 +169,7 @@ const Profile = () => {
                                 navigation(`/posts/${post._id}`);
                             }}
                         >
-                            <PostItem post={post} user={currentUser} />
+                            <PostItem post={post} user={user} />
                         </div>
                     ))
                 ) : (

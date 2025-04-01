@@ -11,6 +11,12 @@ export const getPostsMe = async (): Promise<FormDataResponse<IPost[]>> => {
     const response = await apiClient.get("/posts/me");
     return response.data;
 };
+export const getPostsOfUser = async (
+    userId: string
+): Promise<FormDataResponse<IPost[]>> => {
+    const response = await apiClient.get(`/posts/user/${userId}`);
+    return response.data;
+};
 
 export const getPost = async (
     postId: string

@@ -38,7 +38,7 @@ const ChatMessages: React.FC = () => {
     }
 
     return (
-        <div className="w-120 flex-1 p-4 overflow-y-auto bg-gray-50">
+        <div className=" flex-1 p-4 overflow-y-auto bg-gray-50">
             <div className="space-y-4">
                 {messages.length === 0 ? (
                     <div className="text-center text-gray-500 py-8">
