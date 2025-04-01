@@ -44,6 +44,8 @@ const Profile = () => {
                 console.log("missing data at add remove friend");
                 return;
             }
+            console.log(res.data);
+
             navigation(0);
             // setUser(res.data);
         } catch (error) {

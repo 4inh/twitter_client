@@ -17,6 +17,8 @@ const MainContent = () => {
         const fetchPosts = async () => {
             try {
                 const postData = await getPosts();
+                console.log(currentUser);
+
                 if (postData.data) {
                     setPosts(postData.data);
                 }

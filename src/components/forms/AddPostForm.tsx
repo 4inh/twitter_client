@@ -143,7 +143,7 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
         <div className="p-5 flex gap-4 border-transparent">
             <Link to={`/profile/${currentUser._id}`}>
                 <Avatar>
-                    <AvatarImage src={currentUser.profileBackground} />
+                    <AvatarImage src={currentUser.profilePicture} />
                     <AvatarFallback>{currentUser.email.at(0)}</AvatarFallback>
                 </Avatar>
             </Link>
