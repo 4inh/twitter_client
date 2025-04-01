@@ -76,7 +76,7 @@ export const LoginForm = () => {
                             onClick={handleLogin}
                         >
                             {/* Đăng nhập */}
-                            {isLoading ? "Logging in..." : "Login"}
+                            {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
                         </Button>
                         <Button
                             variant="outline"

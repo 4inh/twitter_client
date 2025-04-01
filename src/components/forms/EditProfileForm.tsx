@@ -65,14 +65,13 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Edit Profile</Button>
+                <Button variant="outline">Chỉnh sửa hồ sơ</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-xl">
                 <DialogHeader>
-                    <DialogTitle>Edit Profile</DialogTitle>
+                    <DialogTitle>Chỉnh sửa</DialogTitle>
                     <DialogDescription>
-                        Make changes to your profile here. Click save when
-                        you're done.
+                    Thực hiện các thay đổi cho hồ sơ của bạn ở đây. Nhấp vào Lưu khi bạn hoàn thành.
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleEditProfile} className="grid gap-4 py-4">
@@ -104,7 +103,7 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                                     type="button"
                                     onClick={handleMediaClick}
                                 >
-                                    Change
+                                    Thay đổi
                                 </button>
                             </div>
                         </div>
@@ -114,7 +113,7 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                             htmlFor="displayname"
                             className="text-sm font-medium text-right"
                         >
-                            Display Name
+                            Tên hiển thị
                         </label>
                         <Input
                             id="displayname"
@@ -124,7 +123,7 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                         />
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Save changes</Button>
+                        <Button type="submit">Lưu thay đổi</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

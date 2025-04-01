@@ -20,6 +20,7 @@ import { IPost } from "@/types/post";
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
+import { AiOutlineLike } from "react-icons/ai";
 
 function PostItem({ post, user }: { post: IPost; user: User | null }) {
     const [open, setOpen] = useState(false);
@@ -93,7 +94,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                                     role="button"
                                     className="text-red-500 cursor-pointer"
                                 >
-                                    Delete
+                                    Xóa
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                     onClick={() => {
@@ -102,14 +103,14 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                                     role="button"
                                     className="cursor-pointer"
                                 >
-                                    Edit
+                                    Chỉnh sửa
                                 </DropdownMenuItem>
                             </>
                         )}
                         <DropdownMenuItem role="button">
-                            Report
+                            Báo cáo
                         </DropdownMenuItem>
-                        <DropdownMenuItem role="button">Info</DropdownMenuItem>
+                        <DropdownMenuItem role="button">Thông tin</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
 
@@ -117,10 +118,9 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                 <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                     <DialogContent>
                         <DialogHeader>
-                            <DialogTitle>Confirm Deletion</DialogTitle>
+                            <DialogTitle>Xác nhận xóa</DialogTitle>
                             <DialogDescription>
-                                Are you sure you want to delete this item? This
-                                action cannot be undone.
+                                Bạn có chắc muốn xóa bài viết này? Hành động này không thể hoàn lại.
                             </DialogDescription>
                         </DialogHeader>
                         <DialogFooter>
@@ -129,14 +129,14 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                                 role="button"
                                 onClick={() => setDialogOpen(false)}
                             >
-                                Cancel
+                                Hủy
                             </Button>
                             <Button
                                 variant="default"
                                 onClick={handleDelete}
                                 role="button"
                             >
-                                Delete
+                                Xóa
                             </Button>
                         </DialogFooter>
                     </DialogContent>
@@ -164,7 +164,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                             console.log("Comment button clicked"); // Add your logic
                         }}
                     >
-                        Comments
+                        Bình luận
                     </button>
                     <p>{post.comments.length}</p>
                 </div>
@@ -177,7 +177,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                         }`}
                         onClick={handleLikePost}
                     >
-                        Likes
+                        <AiOutlineLike />
                     </button>
                     <p>{post.likes.length}</p>
                 </div>

@@ -38,14 +38,14 @@ const PostDetailPage = () => {
     }, [param.id]);
     return (
         <div className="flex-1 bg-white shadow-md p-5">
-            <h2 className="text-xl font-bold mb-4">Posts</h2>
+            <h2 className="text-xl font-bold mb-4">Bài đăng</h2>
 
             {isLoading ? (
-                <p>Loading ...</p>
+                <p>Đang tải ...</p>
             ) : post ? (
                 <PostItem post={post} user={currentUser} />
             ) : (
-                <p>No post</p>
+                <p>Không có bài đăng</p>
             )}
         </div>
     );

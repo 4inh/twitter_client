@@ -8,6 +8,7 @@ import PostItem from "./post/PostItem";
 import { EditProfileForm } from "./forms/EditProfileForm";
 import { IUser } from "@/types/auth";
 import { addRemoveFriend, getUser, getUserMe } from "@/api/user";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 const Profile = () => {
     const navigation = useNavigate();
@@ -90,12 +91,15 @@ const Profile = () => {
         <div className="flex-1 bg-white">
             <div className="sticky z-50 top-0 left-0 w-full bg-white shadow-xs">
                 <div className="flex items-center gap-4 px-4 py-1">
-                    <button onClick={() => navigation(-1)}>back</button>
+                    <button onClick={() => navigation(-1)}
+                        className="hover:text-blue-500">
+                        <IoChevronBackOutline />
+                        </button>
                     <div className="flex flex-col">
                         <h2 className="text-xl font-semibold">
                             {user?.displayName}
                         </h2>
-                        <p>{postsOfCurrentUser.length} posts</p>
+                        <p>{postsOfCurrentUser.length} Bài đăng</p>
                     </div>
                 </div>
             </div>
