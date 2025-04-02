@@ -37,7 +37,8 @@ const Sidebar = () => {
                 })}
             </ul>
 
-            <button className="text-2xl w-full bg-blue-500 text-white py-2 rounded-full mt-10 hover:bg-blue-800">
+            <button className="text-2xl w-full bg-blue-500 text-white py-2 rounded-full mt-10 hover:bg-blue-800"
+            onClick={() => navigate("/home")}>
                 Đăng
             </button>
         </div>

@@ -4,6 +4,7 @@ import { INotification } from "@/types/notification";
 import { useContext } from "react";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
+import { Link } from "react-router-dom";
 
 const socket = io("http://localhost:5000");
 
@@ -44,17 +45,25 @@ const NotificationFeed = () => {
         fetchNotifications();
     }, []);
     return (
-        <div className="w-2/3 p-4 border-r border-gray-300 mx-auto">
-            <h2 className="text-xl font-bold mb-4 ">Thông báo</h2>
-            <ul className="mt-4 space-y-3  list-none">
+        <div className="w-2/3 border-r border-gray-200">
+            <h2 className="text-2xl font-bold mb-0 p-4 bg-blue-500 text-white">Thông báo</h2>
+            <ul className="mt-0 list-none">
                 {notifications.length > 0 ? (
                     notifications.map((notification, index) => (
-                        <div key={index}>
+                        <div key={index}
+                            className="bg-white p-4 border-b">
                             <p>
-                                From{" "}
-                                <span className="text-blue-500">
+                                Từ{" "}
+                                {/* <span className="text-blue-500">
                                     {notification.senderId.username}
-                                </span>
+                                </span> */}
+                                <Link
+                                    to={`/profile/${notification.senderId._id}`}
+                                    className="text-blue-500 hover:underline"
+                                >
+                                    {notification.senderId.username}
+                                </Link>
+
                             </p>
                             <p className="text-md">{notification.message}</p>
                         </div>

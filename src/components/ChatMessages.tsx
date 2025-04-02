@@ -30,7 +30,7 @@ const ChatMessages: React.FC = () => {
                         />
                     </svg>
                     <p className="mt- text-lg">
-                        Select a contact to start chatting
+                        Chọn một liên hệ để bắt đầu trò chuyện
                     </p>
                 </div>
             </div>
@@ -42,7 +42,7 @@ const ChatMessages: React.FC = () => {
             <div className="space-y-4">
                 {messages.length === 0 ? (
                     <div className="text-center text-gray-500 py-8">
-                        <p>No messages yet. Start the conversation!</p>
+                        <p>Chưa có tin nhắn. Bắt đầu cuộc trò chuyện!</p>
                     </div>
                 ) : (
                     messages.map((message) => {
@@ -51,18 +51,16 @@ const ChatMessages: React.FC = () => {
                         return (
                             <div
                                 key={message._id}
-                                className={`flex ${
-                                    isCurrentUser
-                                        ? "justify-end"
-                                        : "justify-start"
-                                }`}
+                                className={`flex ${isCurrentUser
+                                    ? "justify-end"
+                                    : "justify-start"
+                                    }`}
                             >
                                 <div
-                                    className={`max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 ${
-                                        isCurrentUser
-                                            ? "bg-blue-600 text-white"
-                                            : "bg-white border"
-                                    }`}
+                                    className={`max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 ${isCurrentUser
+                                        ? "bg-blue-600 text-white"
+                                        : "bg-white border"
+                                        }`}
                                 >
                                     <div>{message.content}</div>
                                     {message.media &&
@@ -81,11 +79,10 @@ const ChatMessages: React.FC = () => {
                                             </div>
                                         )}
                                     <div
-                                        className={`text-xs mt-1 ${
-                                            isCurrentUser
-                                                ? "text-blue-200"
-                                                : "text-gray-500"
-                                        }`}
+                                        className={`text-xs mt-1 ${isCurrentUser
+                                            ? "text-blue-200"
+                                            : "text-gray-500"
+                                            }`}
                                     >
                                         {new Date(
                                             message.timestamp

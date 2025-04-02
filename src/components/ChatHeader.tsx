@@ -7,7 +7,7 @@ const ChatHeader: React.FC = () => {
     if (!activeChat) return null;
 
     return (
-        <div className="bg-white border-b p-4 flex items-center">
+        <div className="h-17 bg-blue-200 border-b p-3 flex items-center">
             <div className="h-10 w-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
                 {activeChat.profilePicture ? (
                     <img

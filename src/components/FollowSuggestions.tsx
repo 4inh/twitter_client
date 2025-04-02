@@ -20,7 +20,7 @@ const FollowSuggestions: React.FC = () => {
     }, []);
 
     return (
-        <div className="w-80 bg-white p-5 shadow-md rounded-md mx-2 mb-2">
+        <div className="w-80 bg-white p-5 shadow-md border mb-2">
             <div className="rounded-lg p-4">
                 <h3 className="font-bold text-lg mb-3">Gợi ý theo dõi</h3>
                 {Array.isArray(users) && users.length > 0 ? (

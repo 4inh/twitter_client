@@ -18,7 +18,7 @@ const MessageInput: React.FC = () => {
             <div className="flex items-center">
                 <input
                     type="text"
-                    placeholder="Type a message..."
+                    placeholder="Nhập tin nhắn..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     disabled={!activeChat}
@@ -29,7 +29,7 @@ const MessageInput: React.FC = () => {
                     disabled={!message.trim() || !activeChat}
                     className="bg-blue-600 text-white p-3 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-300"
                 >
-                    Send
+                    Gửi
                 </button>
             </div>
         </form>

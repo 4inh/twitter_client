@@ -24,8 +24,14 @@ const RightSidebar = () => {
             <ul className="space-y-2">
                 {topTags.map((topTag) => (
                     <li key={topTag._id}>
-                        {topTag._id} - {topTag.count} bài đăng
+                        <span className="hover:text-blue-500 cursor-pointer" title={topTag._id}>
+                            {topTag._id}
+                        </span>
+
+                        {" - "}
+                        {topTag.count} bài đăng
                     </li>
+
                 ))}
             </ul>
             <button className="mt-5 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-800">

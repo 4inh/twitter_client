@@ -66,7 +66,7 @@ const EditPostPage = () => {
             {isLoading ? (
                 <p>Đang tải ...</p>
             ) : post ? (
-                <p>Loading ...</p>
+                <p>Đang tải ...</p>
             ) : post && currentUser ? (
                 <EditPostForm
                     initialMediaFiles={post.media}

@@ -41,7 +41,7 @@ const Profile = () => {
         try {
             const res = await addRemoveFriend(user._id);
             if (!res.data) {
-                console.log("missing data at add remove friend");
+                console.log("Missing data at add remove friend");
                 return;
             }
             console.log(res.data);

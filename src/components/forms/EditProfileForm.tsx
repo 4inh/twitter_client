@@ -57,6 +57,11 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                 setUser(prepare);
             }
             console.log(res);
+
+            document.body.click();
+            setTimeout(() => {
+                window.location.reload();
+            }, 200);
         } catch (error) {
             console.error("Failed to update profile", error);
         }
@@ -65,13 +70,13 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline">Chỉnh sửa hồ sơ</Button>
+                <Button variant="outline" className="hover:bg-blue-500 hover:text-white">Chỉnh sửa hồ sơ</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-xl">
                 <DialogHeader>
                     <DialogTitle>Chỉnh sửa</DialogTitle>
                     <DialogDescription>
-                    Thực hiện các thay đổi cho hồ sơ của bạn ở đây. Nhấp vào Lưu khi bạn hoàn thành.
+                        Thực hiện các thay đổi cho hồ sơ của bạn ở đây. Nhấp vào Lưu khi bạn hoàn thành.
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleEditProfile} className="grid gap-4 py-4">
@@ -123,7 +128,7 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                         />
                     </div>
                     <DialogFooter>
-                        <Button type="submit">Lưu thay đổi</Button>
+                        <Button type="submit" className="hover:bg-blue-800">Lưu thay đổi</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
