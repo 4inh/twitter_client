@@ -12,6 +12,8 @@ export interface User {
     profileBackground: string;
     role: "user" | "admin";
 }
+export type MentionUser = Omit<User, "profileBackground" | "role">;
+
 export type Friend = Pick<
     User,
     "username" | "displayName" | "profilePicture" | "email" | "_id"

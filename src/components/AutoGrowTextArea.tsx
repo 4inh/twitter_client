@@ -1,3 +1,4 @@
+import { Friend } from "@/types/auth";
 import {
     ChangeEvent,
     KeyboardEvent,
@@ -6,12 +7,6 @@ import {
     useRef,
     useState,
 } from "react";
-interface User {
-    id: string;
-    name: string;
-    username: string;
-    avatar?: string;
-}
 
 interface AutoGrowTextAreaProps
     extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -21,7 +16,7 @@ interface AutoGrowTextAreaProps
     maxHeight?: number;
     className?: string;
     placeholder?: string;
-    users?: User[]; // List of users for @ mentions
+    users?: Friend[]; // List of users for @ mentions
 }
 
 const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
@@ -43,7 +38,7 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
     const [mentionQuery, setMentionQuery] = useState<string>("");
     const [showMentionSuggestions, setShowMentionSuggestions] =
         useState<boolean>(false);
-    const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+    const [filteredUsers, setFilteredUsers] = useState<Friend[]>([]);
 
     const [selectedUserIndex, setSelectedUserIndex] = useState<number>(0);
 
@@ -84,14 +79,8 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
     // Filter users when mentionQuery changes
     useEffect(() => {
         if (mentionQuery) {
-            const filtered = users.filter(
-                (user) =>
-                    user.name
-                        .toLowerCase()
-                        .includes(mentionQuery.toLowerCase()) ||
-                    user.username
-                        .toLowerCase()
-                        .includes(mentionQuery.toLowerCase())
+            const filtered = users.filter((user) =>
+                user.username.toLowerCase().includes(mentionQuery.toLowerCase())
             );
             setFilteredUsers(filtered);
             setSelectedUserIndex(0); // Reset selection to first item
@@ -152,7 +141,9 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
             if (part.trim().startsWith("@")) {
                 return (
                     <span key={index}>
-                        <span style={{ color: "blue" }}>{part}</span>
+                        <span style={{ color: "blue", fontWeight: 600 }}>
+                            {part}
+                        </span>
                     </span>
                 );
             }
@@ -160,7 +151,9 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
             else if (part.trim().startsWith("#")) {
                 return (
                     <span key={index}>
-                        <span style={{ color: "blue" }}>{part}</span>
+                        <span style={{ color: "black", fontWeight: 600 }}>
+                            {part}
+                        </span>
                     </span>
                 );
             }
@@ -201,7 +194,7 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
         }
     };
 
-    const insertMention = (user: User): void => {
+    const insertMention = (user: Friend): void => {
         if (!textAreaRef.current) return;
 
         const textarea = textAreaRef.current;
@@ -334,7 +327,7 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
                 >
                     {filteredUsers.map((user, index) => (
                         <div
-                            key={user.id}
+                            key={user._id}
                             onClick={() => insertMention(user)}
                             style={{
                                 padding: "8px 12px",
@@ -348,21 +341,21 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
                             }}
                             onMouseEnter={() => setSelectedUserIndex(index)}
                         >
-                            {user.avatar && (
+                            {user.profilePicture && (
                                 <div
                                     style={{
                                         width: "24px",
                                         height: "24px",
                                         borderRadius: "50%",
                                         marginRight: "8px",
-                                        backgroundImage: `url(${user.avatar})`,
+                                        backgroundImage: `url(${user.profilePicture})`,
                                         backgroundSize: "cover",
                                     }}
                                 />
                             )}
                             <div>
                                 <div style={{ fontWeight: "bold" }}>
-                                    {user.name}
+                                    {user.username}
                                 </div>
                                 <div
                                     style={{
@@ -370,7 +363,7 @@ const AutoGrowTextArea: React.FC<AutoGrowTextAreaProps> = ({
                                         color: "#666",
                                     }}
                                 >
-                                    @{user.username}
+                                    {user.email}
                                 </div>
                             </div>
                         </div>

@@ -1,33 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
-import { IPost } from "@/types/post";
+import { useContext } from "react";
 import AddPostForm from "./forms/AddPostForm";
 
-import { getUser } from "@/api/auth";
-import { getPosts } from "@/api/post";
 import PostItem from "./post/PostItem";
 import { useNavigate } from "react-router";
+import { PostContext } from "@/context/post/PostContext";
+import { AuthContext } from "@/context/auth/AuthContext";
 
 const MainContent = () => {
-    const [posts, setPosts] = useState<IPost[]>([]);
+    const { posts } = useContext(PostContext);
+    const { currentUser } = useContext(AuthContext);
     const navigation = useNavigate();
-    const currentUser = useMemo(() => {
-        return getUser();
-    }, []);
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const postData = await getPosts();
-                console.log(currentUser);
 
-                if (postData.data) {
-                    setPosts(postData.data);
-                }
-            } catch (error) {
-                console.log("Error", error);
-            }
-        };
-        fetchPosts();
-    }, []);
     return (
         <div className="flex-1 bg-white pb-20">
             {/* <h2 className="text-xl font-bold mb-4 px-5">Dành cho bạn</h2> */}

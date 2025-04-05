@@ -1,6 +1,6 @@
 import { FormDataResponse } from "@/types";
 import apiClient from "./apiClient";
-import { IAddPostData, IDeletePost, IPost, ITopTag } from "@/types/post";
+import { IDeletePost, IPost, ITopTag } from "@/types/post";
 
 export const getPosts = async (): Promise<FormDataResponse<IPost[]>> => {
     const response = await apiClient.get("/posts");
@@ -26,7 +26,7 @@ export const getPost = async (
 };
 export const addPost = async (
     payload: FormData
-): Promise<FormDataResponse<IAddPostData>> => {
+): Promise<FormDataResponse<IPost>> => {
     const response = await apiClient.post("/posts", payload, {
         headers: {
             "Content-Type": "multipart/form-data",
@@ -37,7 +37,7 @@ export const addPost = async (
 export const updatePost = async (
     postId: string,
     payload: FormData
-): Promise<FormDataResponse<IAddPostData>> => {
+): Promise<FormDataResponse<IPost>> => {
     const response = await apiClient.put(`/posts/${postId}`, payload, {
         headers: {
             "Content-Type": "multipart/form-data",

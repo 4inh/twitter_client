@@ -1,5 +1,5 @@
 import { getUser as getUserSession } from "@/api/auth";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 import { useNavigate, useParams } from "react-router";
 import { IPost } from "@/types/post";
@@ -7,7 +7,7 @@ import { getPostsMe, getPostsOfUser } from "@/api/post";
 import PostItem from "./post/PostItem";
 import { EditProfileForm } from "./forms/EditProfileForm";
 import { IUser } from "@/types/auth";
-import { addRemoveFriend, getUser, getUserMe } from "@/api/user";
+import { addRemoveFriend, getUserByUsername, getUserMe } from "@/api/user";
 import { IoChevronBackOutline } from "react-icons/io5";
 
 const Profile = () => {
@@ -55,15 +55,15 @@ const Profile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                if (param.userId) {
-                    const res = await getUser(param.userId);
+                if (param.username) {
+                    const res = await getUserByUsername(param.username);
                     if (!res.data) {
                         console.log("Missing data at get user");
 
                         return;
                     }
                     setUser(res.data);
-                    const posts = await getPostsOfUser(param.userId);
+                    const posts = await getPostsOfUser(res.data._id);
                     if (!posts.data) {
                         console.log("Missing data at getPostsOfUser");
 
@@ -88,18 +88,20 @@ const Profile = () => {
             }
         };
         fetchUser();
-    }, [param.userId]);
+    }, [param.username]);
     return (
         <div className="flex-1 bg-white">
             <div className="sticky z-50 top-0 left-0 w-full bg-white shadow-xs">
                 <div className="flex items-center gap-4 px-4 py-1">
-                    <button onClick={() => navigation(-1)}
-                        className="hover:text-blue-500">
+                    <button
+                        onClick={() => navigation(-1)}
+                        className="hover:text-blue-500"
+                    >
                         <IoChevronBackOutline />
-                        </button>
+                    </button>
                     <div className="flex flex-col">
                         <h2 className="text-xl font-semibold">
-                            {user?.displayName}
+                            {user?.displayName ?? user?.username}
                         </h2>
                         <p>{postsOfCurrentUser.length} Bài đăng</p>
                     </div>
@@ -139,7 +141,9 @@ const Profile = () => {
 
                 {/* Profile Info */}
                 <div className="py-4 ">
-                    <h2 className="text-2xl font-bold">{user?.displayName}</h2>
+                    <h2 className="text-2xl font-bold">
+                        {user?.displayName ?? user?.username}
+                    </h2>
                     <p className="text-gray-500">{user?.email}</p>
                     <p className="text-gray-500 text-sm">
                         📅 Tham gia tháng {joinedMonth} năm {joinedYear}

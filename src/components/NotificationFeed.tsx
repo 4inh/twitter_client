@@ -46,24 +46,24 @@ const NotificationFeed = () => {
     }, []);
     return (
         <div className="w-2/3 border-r border-gray-200">
-            <h2 className="text-2xl font-bold mb-0 p-4 bg-blue-500 text-white">Thông báo</h2>
+            <h2 className="text-2xl font-bold mb-0 p-4 bg-blue-500 text-white">
+                Thông báo
+            </h2>
             <ul className="mt-0 list-none">
                 {notifications.length > 0 ? (
                     notifications.map((notification, index) => (
-                        <div key={index}
-                            className="bg-white p-4 border-b">
+                        <div key={index} className="bg-white p-4 border-b">
                             <p>
                                 Từ{" "}
                                 {/* <span className="text-blue-500">
                                     {notification.senderId.username}
                                 </span> */}
                                 <Link
-                                    to={`/profile/${notification.senderId._id}`}
+                                    to={`/profile/${notification.senderId.username}`}
                                     className="text-blue-500 hover:underline"
                                 >
                                     {notification.senderId.username}
                                 </Link>
-
                             </p>
                             <p className="text-md">{notification.message}</p>
                         </div>

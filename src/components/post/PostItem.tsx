@@ -17,7 +17,7 @@ import { deletePost, likePost } from "@/api/post";
 
 import { User } from "@/types/auth";
 import { IPost } from "@/types/post";
-import { useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
 import { AiOutlineLike } from "react-icons/ai";
@@ -26,6 +26,10 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
     const [open, setOpen] = useState(false);
     const navigation = useNavigate();
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [displayElement, setDisplayElement] = useState<ReactNode>(
+        post.content
+    );
+
     const [isLiked, setIsLiked] = useState<boolean>(
         !!post.likes.find((like) => like._id === user?._id)
     );
@@ -54,12 +58,53 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
             setOpen(false);
         }
     };
+    const processHighlighting = (): void => {
+        // Split content by mentions and hashtags
+        // This regex matches @word or #word patterns (word = letters, numbers, underscores)
+        const parts: string[] = post.content.split(
+            /(\s@[\w]+|\s#[\w]+|^@[\w]+|^#[\w]+)/g
+        );
+
+        const highlightedContent = parts.map((part, index) => {
+            // Check if the part is a mention (@)
+            if (part.trim().startsWith("@")) {
+                return (
+                    <span key={index}>
+                        <span
+                            // to={`/profile/${}`}
+                            role="button"
+                            style={{ color: "blue", fontWeight: 600 }}
+                        >
+                            {part}
+                        </span>
+                    </span>
+                );
+            }
+            // Check if the part is a hashtag (#)
+            else if (part.trim().startsWith("#")) {
+                return (
+                    <span key={index}>
+                        <span style={{ color: "black", fontWeight: 600 }}>
+                            {part}
+                        </span>
+                    </span>
+                );
+            }
+            // Regular text
+            return <span key={index}>{part}</span>;
+        });
+
+        setDisplayElement(highlightedContent);
+    };
+    useEffect(() => {
+        processHighlighting();
+    }, []);
     return (
         <div className="p-5 hover:bg-gray-100 hover:cursor-pointer">
             <div className="flex justify-between">
                 <Link
                     className="flex items-center  gap-2 mb-5"
-                    to={`/profile/${post.author._id}`}
+                    to={`/profile/${post.author.username}`}
                     role="button"
                 >
                     <Avatar className="size-10">
@@ -70,7 +115,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                     </Avatar>
                     <div className="flex flex-col">
                         <h3 className="font-semibold text-xl">
-                            {post.author?.displayName}
+                            {post.author?.displayName ?? post.author.username}
                         </h3>
                         <p className=" text-md text-gray-500">
                             {post.author.email}
@@ -110,7 +155,9 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                         <DropdownMenuItem role="button">
                             Báo cáo
                         </DropdownMenuItem>
-                        <DropdownMenuItem role="button">Thông tin</DropdownMenuItem>
+                        <DropdownMenuItem role="button">
+                            Thông tin
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
 
@@ -120,7 +167,8 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                         <DialogHeader>
                             <DialogTitle>Xác nhận xóa</DialogTitle>
                             <DialogDescription>
-                                Bạn có chắc muốn xóa bài viết này? Hành động này không thể hoàn lại.
+                                Bạn có chắc muốn xóa bài viết này? Hành động này
+                                không thể hoàn lại.
                             </DialogDescription>
                         </DialogHeader>
                         <DialogFooter>
@@ -143,7 +191,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                 </Dialog>
             </div>
 
-            <p className="text-start mb-4">{post.content}</p>
+            <p className="text-start mb-4">{displayElement}</p>
             <div className="flex flex-col gap-2 overflow-hidden rounded-lg shadow-sm">
                 {post.media.map((source) => (
                     <div key={source}>

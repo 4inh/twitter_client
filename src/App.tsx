@@ -22,9 +22,6 @@ export default function App() {
             <BrowserRouter>
                 <Routes>
                     <Route index element={<AuthPage />} />
-                    {/* <Route path="/login" element={<AuthPage />} /> */}
-                    {/* <Route path="/register" element={<RegisterPage />} /> */}
-
                     <Route path="/" element={<MainLayout />}>
                         <Route path="/home" element={<HomePage />} />
                         <Route path="/explore" element={<ExplorePage />} />
@@ -43,7 +40,7 @@ export default function App() {
 
                         <Route path="/profile" element={<ProfilePage />} />
                         <Route
-                            path="/profile/:userId"
+                            path="/profile/:username"
                             element={<ProfilePage />}
                         />
                         <Route path="/posts/:id" element={<PostDetailPage />} />

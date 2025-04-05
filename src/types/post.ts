@@ -1,4 +1,4 @@
-import { User } from "./auth";
+import { MentionUser, User } from "./auth";
 
 export interface IPost {
     _id: string;
@@ -6,9 +6,9 @@ export interface IPost {
     author: Author;
     media: string[];
     likes: Like[];
-    visibility: string;
+    visibility: IVisibility;
     tags: string[];
-    mentions: User[];
+    mentions: MentionUser[];
     comments: Comment[];
     createdAt: string;
     updatedAt: string;
@@ -20,7 +20,7 @@ export interface Author {
     username: string;
     email: string;
     profilePicture: string;
-    displayName: string?;
+    displayName?: string;
 }
 
 export interface Like {
@@ -39,25 +39,18 @@ export interface Comment {
 
 export interface IPostPayloadData {
     content: string;
-    media: string[];
+    media?: File[];
     tags: string[];
-    mentions: any[];
-    visibility: IVisibility;
+    mentions?: string[];
+    visibility?: IVisibility;
 }
 
-export interface IAddPostData {
+export interface IEditPostPayloadData {
     content: string;
-    author: string;
-    media: string[];
-    likes: any[];
-    visibility: IVisibility;
+    media?: (File | string)[];
     tags: string[];
-    mentions: any[];
-    _id: string;
-    comments: any[];
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
+    mentions?: string[];
+    visibility?: IVisibility;
 }
 
 export interface Author {
@@ -75,4 +68,4 @@ export interface ITopTag {
 }
 export interface IDeletePost {
     message: string;
-}zz
+}

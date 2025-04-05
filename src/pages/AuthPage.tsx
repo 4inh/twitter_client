@@ -1,19 +1,14 @@
 import { AuthForm } from "@/components/auth/AuthForm";
 import Logo from "../components/ui/Logo";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
-import { getToken } from "@/api/auth";
+import { useContext } from "react";
+import { Navigate } from "react-router";
+import { AuthContext } from "@/context/auth/AuthContext";
 
 const AuthPage = () => {
-    const navigate = useNavigate();
-    useEffect(() => {
-        const token = getToken();
-        console.log("token", token);
-
-        if (token) {
-            navigate("/home");
-        }
-    }, [navigate]);
+    const { token } = useContext(AuthContext);
+    if (token) {
+        return <Navigate to={"/home"} />;
+    }
     return (
         <div className="h-screen flex items-center justify-center">
             <div className="flex max-w-5xl w-full px-6">

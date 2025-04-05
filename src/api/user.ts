@@ -15,6 +15,12 @@ export const editProfile = async (
 
     return response.data;
 };
+export const getUserByUsername = async (
+    username: string
+): Promise<FormDataResponse<IUser>> => {
+    const response = await apiClient.get(`/users/user/${username}`);
+    return response.data;
+};
 
 export const getUser = async (
     userId: string

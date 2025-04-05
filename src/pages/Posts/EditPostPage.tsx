@@ -1,18 +1,19 @@
-import { getUser } from "@/api/auth";
-import { getPost, updatePost } from "@/api/post";
 import EditPostForm from "@/components/forms/EditPostForm";
-import { IPost } from "@/types/post";
-import { useEffect, useMemo, useState } from "react";
+import { AuthContext } from "@/context/auth/AuthContext";
+import { PostContext } from "@/context/post/PostContext";
+import { IEditPostPayloadData } from "@/types/post";
+import { removeAtSymbol } from "@/utils";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
 const EditPostPage = () => {
     const param = useParams();
     const navigation = useNavigate();
-    const [post, setPost] = useState<IPost | null>(null);
+
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const currentUser = useMemo(() => {
-        return getUser();
-    }, []);
+
+    const { currentUser } = useContext(AuthContext);
+    const { currentPost, getCurrentPost, editPost } = useContext(PostContext);
     // const [errorMessage,setErrorMessage] = useState<string>("")
     const handleUpdatePost = async ({
         text,
@@ -21,17 +22,25 @@ const EditPostPage = () => {
         text: string;
         mediaFiles: (File | string)[];
     }) => {
-        if (!post) return;
-        try {
-            const formData = new FormData();
-            formData.append("content", text);
-            mediaFiles.forEach((file) => {
-                formData.append("media", file); // Use array notation for multiple files
-            });
+        if (!currentPost || !currentUser) return;
+        const mentions = new Set(text.match(/@\w+/g) || []);
+        const tags = new Set(text.match(/#\w+/g) || []);
 
-            const res = await updatePost(post._id, formData);
-            console.log({ res });
-            navigation(`/posts/${post._id}`);
+        try {
+            const validateMentions = removeAtSymbol([...mentions]);
+
+            const matchedFriendIds = currentUser.friends
+                .filter((friend) => validateMentions.includes(friend.username))
+                .map((matchedFriend) => matchedFriend._id);
+            console.log("matchedFriendIds:", matchedFriendIds);
+            const prepareEditPayload: IEditPostPayloadData = {
+                content: text,
+                tags: [...tags],
+                media: mediaFiles,
+                mentions: matchedFriendIds,
+            };
+            await editPost(currentPost._id, prepareEditPayload);
+            navigation(`/posts/${currentPost._id}`);
         } catch (error) {
             console.log("Error", error);
         }
@@ -45,10 +54,7 @@ const EditPostPage = () => {
             }
             setIsLoading(true);
             try {
-                const res = await getPost(param.id);
-                if (res.data) {
-                    setPost(res.data);
-                }
+                await getCurrentPost(param.id);
 
                 setIsLoading(false);
             } catch (error) {
@@ -58,19 +64,17 @@ const EditPostPage = () => {
             }
         };
         fetchPost();
-    }, [param.id]);
+    }, [param.id, getCurrentPost]);
     return (
         <div className="flex-1 bg-white shadow-md p-5">
             <h2 className="text-xl font-bold mb-4">Bài đăng</h2>
 
             {isLoading ? (
                 <p>Đang tải ...</p>
-            ) : post ? (
-                <p>Đang tải ...</p>
-            ) : post && currentUser ? (
+            ) : currentPost && currentUser ? (
                 <EditPostForm
-                    initialMediaFiles={post.media}
-                    initialText={post.content}
+                    initialMediaFiles={currentPost.media}
+                    initialText={currentPost.content}
                     onSubmit={(text, mediaFiles) =>
                         handleUpdatePost({ text, mediaFiles })
                     }

@@ -54,7 +54,9 @@ export const LoginForm = () => {
                 <DialogHeader>
                     <DialogTitle>
                         <FaTwitter className="text-blue-500 text-5xl" />
-                        <h1 className="text-center">Đăng nhập vào Twitter</h1>
+                        <span className="text-center">
+                            Đăng nhập vào Twitter
+                        </span>
                     </DialogTitle>
 
                     <Input

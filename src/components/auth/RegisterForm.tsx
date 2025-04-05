@@ -57,7 +57,7 @@ export const RegisterForm = () => {
                 <DialogHeader>
                     <DialogTitle>
                         <FaTwitter className="text-blue-500 text-5xl" />
-                        <h1 className="text-center">Đăng ký tài khoản</h1>
+                        <span className="text-center">Đăng ký tài khoản</span>
                     </DialogTitle>
 
                     <Input

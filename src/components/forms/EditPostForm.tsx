@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import AutoGrowTextArea from "../AutoGrowTextArea";
 import { Link } from "react-router";
-import { User } from "@/types/auth";
+import { IUser } from "@/types/auth";
 
 interface MediaFile {
     file?: File;
@@ -14,7 +14,7 @@ interface EditPostFormProps {
     initialText: string;
     initialMediaFiles: string[];
     onSubmit: (text: string, mediaFiles: (File | string)[]) => Promise<void>;
-    currentUser: User;
+    currentUser: IUser;
 }
 
 const EditPostForm = ({
@@ -94,7 +94,7 @@ const EditPostForm = ({
 
     return (
         <div className="py-4 flex gap-4">
-            <Link to={`/profile/${currentUser._id}`}>
+            <Link to={`/profile/${currentUser.username}`}>
                 <Avatar>
                     <AvatarImage src={currentUser.profilePicture} />
                     <AvatarFallback>{currentUser.email.at(0)}</AvatarFallback>
@@ -104,6 +104,7 @@ const EditPostForm = ({
                 <AutoGrowTextArea
                     value={text}
                     onChange={handleChange}
+                    users={currentUser.friends}
                     placeholder="Chỉnh sửa bài viết..."
                 />
 

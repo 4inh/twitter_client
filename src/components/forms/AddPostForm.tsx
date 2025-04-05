@@ -1,43 +1,44 @@
-import { addPost } from "@/api/post";
-
-import { ChangeEvent, useState, useRef } from "react";
+import { ChangeEvent, useState, useRef, useContext } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import AutoGrowTextArea from "../AutoGrowTextArea";
-import { User } from "@/types/auth";
+import { IUser } from "@/types/auth";
 import { Link } from "react-router";
+import { PostContext } from "@/context/post/PostContext";
+import { IPostPayloadData } from "@/types/post";
+import { removeAtSymbol } from "@/utils";
 
-const sampleUsers = [
-    {
-        id: "1",
-        name: "John Doe",
-        username: "johndoe",
-        avatar: "https://placehold.co/32x32",
-    },
-    {
-        id: "2",
-        name: "Jane Smith",
-        username: "janesmith",
-        avatar: "https://placehold.co/32x32",
-    },
-    {
-        id: "3",
-        name: "Robert Johnson",
-        username: "rjohnson",
-        avatar: "https://placehold.co/32x32",
-    },
-    {
-        id: "4",
-        name: "Emily Davis",
-        username: "emilyd",
-        avatar: "https://placehold.co/32x32",
-    },
-    {
-        id: "5",
-        name: "Michael Wilson",
-        username: "mikewilson",
-        avatar: "https://placehold.co/32x32",
-    },
-];
+// const sampleUsers = [
+//     {
+//         id: "1",
+//         name: "John Doe",
+//         username: "johndoe",
+//         avatar: "https://placehold.co/32x32",
+//     },
+//     {
+//         id: "2",
+//         name: "Jane Smith",
+//         username: "janesmith",
+//         avatar: "https://placehold.co/32x32",
+//     },
+//     {
+//         id: "3",
+//         name: "Robert Johnson",
+//         username: "rjohnson",
+//         avatar: "https://placehold.co/32x32",
+//     },
+//     {
+//         id: "4",
+//         name: "Emily Davis",
+//         username: "emilyd",
+//         avatar: "https://placehold.co/32x32",
+//     },
+//     {
+//         id: "5",
+//         name: "Michael Wilson",
+//         username: "mikewilson",
+//         avatar: "https://placehold.co/32x32",
+//     },
+// ];
 
 interface MediaFile {
     file: File;
@@ -45,12 +46,12 @@ interface MediaFile {
     type: string;
 }
 
-const AddPostForm = ({ currentUser }: { currentUser: User }) => {
+const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
     const [text, setText] = useState<string>("");
     const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
-
+    const { createPost } = useContext(PostContext);
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
         setText(e.target.value);
     };
@@ -103,33 +104,22 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
         console.log("Tags:", tags);
         console.log("Media files:", mediaFilesForAPI);
 
-        // Create FormData to send files to server
-        const formData = new FormData();
-        formData.append("content", text);
-
-        // Add each file to the FormData
-        mediaFilesForAPI.forEach((file) => {
-            formData.append("media", file); // Use array notation for multiple files
-        });
-
-        // Add other data
-        if (tags.size > 0) {
-            formData.append("tags", JSON.stringify([...tags]));
-        }
-
-        if (mentions.size > 0) {
-            formData.append("mentions", JSON.stringify([...mentions]));
-        }
-
-        formData.append("visibility", "public");
-
         setIsLoading(true);
+        const validateMentions = removeAtSymbol([...mentions]);
+
+        const matchedFriendIds = currentUser.friends
+            .filter((friend) => validateMentions.includes(friend.username))
+            .map((matchedFriend) => matchedFriend._id);
+        console.log("matchedFriendIds:", matchedFriendIds);
 
         try {
-            // Update the addPost function to handle FormData instead of JSON
-            const res = await addPost(formData);
-            console.log(res);
-
+            const preparePayload: IPostPayloadData = {
+                content: text,
+                tags: [...tags],
+                media: mediaFilesForAPI,
+                mentions: matchedFriendIds,
+            };
+            await createPost(preparePayload);
             setText("");
             setMediaFiles([]);
             setIsLoading(false);
@@ -141,7 +131,7 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
 
     return (
         <div className="p-5 flex gap-4 border-transparent">
-            <Link to={`/profile/${currentUser._id}`}>
+            <Link to={`/profile/${currentUser.username}`}>
                 <Avatar>
                     <AvatarImage src={currentUser.profilePicture} />
                     <AvatarFallback>{currentUser.email.at(0)}</AvatarFallback>
@@ -151,7 +141,7 @@ const AddPostForm = ({ currentUser }: { currentUser: User }) => {
                 <AutoGrowTextArea
                     value={text}
                     onChange={handleChange}
-                    users={sampleUsers}
+                    users={currentUser.friends}
                     placeholder="Chuyện gì đang xảy ra?"
                     className="border-b border-gray-500 hover:border-b-2 transition-all duration-100"
                 />

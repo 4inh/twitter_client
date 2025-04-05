@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactNode } from "react";
 
-import { User } from "@/types/auth";
+import { IUser } from "@/types/auth";
 import {
     getToken,
     removeToken,
@@ -15,7 +15,7 @@ import { AuthContext } from "./AuthContext";
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<IUser | null>(null);
     const [token, setToken] = useState<string | null>(() => getToken());
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -42,7 +42,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setSessionToken(res.token);
         setSessionUser(res.user);
         setToken(res.token);
-        setCurrentUser(res.user);
+        // setCurrentUser(res.user);
     };
     const register = async (
         email: string,
@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setSessionToken(res.token);
         setSessionUser(res.user);
         setToken(res.token);
-        setCurrentUser(res.user);
+        // setCurrentUser(res.user);
     };
 
     const logout = () => {

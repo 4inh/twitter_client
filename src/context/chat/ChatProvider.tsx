@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext, ReactNode } from "react";
-import { io } from "socket.io-client";
 import { Friend } from "@/types/auth";
 import { Message } from "@/types/message";
 import { AuthContext } from "../auth/AuthContext";
 import { ChatContext } from "./ChatContext";
 import { getFriends } from "@/api/user";
 import { getMessages, postMessage } from "@/api/message";
-
-const socket = io("http://localhost:5000"); // Adjust URL if needed
+import socket from "@/config/socketConfig";
 
 export const ChatProvider: React.FC<{ children: ReactNode }> = ({
     children,
