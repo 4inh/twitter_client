@@ -46,7 +46,7 @@ const NotificationFeed = () => {
     }, []);
     return (
         <div className="w-2/3 border-r border-gray-200">
-            <h2 className="text-2xl font-bold mb-0 p-4 bg-blue-500 text-white">
+            <h2 className="text-2xl font-bold mb-0 p-4 bg-black text-white">
                 Thông báo
             </h2>
             <ul className="mt-0 list-none">
@@ -60,7 +60,7 @@ const NotificationFeed = () => {
                                 </span> */}
                                 <Link
                                     to={`/profile/${notification.senderId.username}`}
-                                    className="text-blue-500 hover:underline"
+                                    className=" font-bold text-black hover:underline"
                                 >
                                     {notification.senderId.username}
                                 </Link>
