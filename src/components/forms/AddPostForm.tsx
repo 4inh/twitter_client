@@ -249,7 +249,7 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                         onClick={handleSubmit}
                         disabled={isLoading || text.trim().length === 0}
                     >
-                        Đăng
+                        {isLoading ? "Loading" : "Đăng"}
                     </button>
                 </div>
             </div>

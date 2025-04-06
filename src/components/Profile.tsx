@@ -6,13 +6,13 @@ import { getPostsMe, getPostsOfUser } from "@/api/post";
 import PostItem from "./post/PostItem";
 import { EditProfileForm } from "./forms/EditProfileForm";
 import { IUser } from "@/types/auth";
-import { addRemoveFriend, getUserByUsername, getUserMe } from "@/api/user";
+import { addRemoveFriend, getUserByUsername } from "@/api/user";
 import { IoChevronBackOutline } from "react-icons/io5";
 import { AuthContext } from "@/context/auth/AuthContext";
 
 const Profile = () => {
     const navigation = useNavigate();
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, updateCurrentUser } = useContext(AuthContext);
     const param = useParams();
     const [user, setUser] = useState<IUser | null>(null);
 
@@ -26,9 +26,9 @@ const Profile = () => {
 
     const isFollowed = useMemo(() => {
         if (!user || !currentUser) return false;
-        return user.following
-            .map((following) => following._id)
-            .includes(currentUser?._id);
+        return currentUser.following
+            .map((follower) => follower._id)
+            .includes(user?._id);
     }, [user, currentUser]);
     const handleFollow = async () => {
         if (!user) {
@@ -44,8 +44,8 @@ const Profile = () => {
             }
             console.log(res.data);
 
-            navigation(0);
-            // setUser(res.data);
+            // navigation(0);
+            updateCurrentUser(res.data);
         } catch (error) {
             console.log(error);
         }
@@ -61,6 +61,8 @@ const Profile = () => {
                         return;
                     }
                     setUser(res.data);
+                    console.log("user", res.data);
+
                     const posts = await getPostsOfUser(res.data._id);
                     if (!posts.data) {
                         console.log("Missing data at getPostsOfUser");
@@ -69,13 +71,13 @@ const Profile = () => {
                     }
                     setPostsOfCurrentUser(posts.data);
                 } else {
-                    const res = await getUserMe();
-                    if (!res.data) {
-                        console.log("Missing data at get user me");
+                    // const res = await getUserMe();
+                    // if (!res.data) {
+                    //     console.log("Missing data at get user me");
 
-                        return;
-                    }
-                    setUser(res.data);
+                    //     return;
+                    // }
+                    setUser(currentUser);
                     const postData = await getPostsMe();
                     if (postData.data) {
                         setPostsOfCurrentUser(postData.data);

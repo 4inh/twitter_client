@@ -7,6 +7,7 @@ export interface AuthContextType {
     token: string | null;
     loading: boolean;
     login: (email: string, password: string) => Promise<void>;
+    updateCurrentUser: (newUser: IUser) => void;
     logout: () => void;
     register: (
         email: string,

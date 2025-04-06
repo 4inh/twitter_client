@@ -19,24 +19,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     const [token, setToken] = useState<string | null>(() => getToken());
     const [loading, setLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const fetchCurrentUser = async () => {
-            if (token) {
-                try {
-                    const res = await getUserMe();
-                    setCurrentUser(res.data);
-                } catch (err) {
-                    console.error("Failed to fetch user:", err);
-                    removeToken();
-                    setToken(null);
-                }
-            }
-            setLoading(false);
-        };
-
-        fetchCurrentUser();
-    }, [token]);
-
     const login = async (email: string, password: string) => {
         const res = await authLogin(email, password);
         setSessionToken(res.token);
@@ -55,6 +37,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setToken(res.token);
         // setCurrentUser(res.user);
     };
+    const updateCurrentUser = async (newUser: IUser) => {
+        setCurrentUser(newUser);
+    };
 
     const logout = () => {
         removeToken();
@@ -62,9 +47,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setCurrentUser(null);
     };
 
+    useEffect(() => {
+        const fetchCurrentUser = async () => {
+            if (token) {
+                try {
+                    const res = await getUserMe();
+                    setCurrentUser(res.data);
+                } catch (err) {
+                    console.error("Failed to fetch user:", err);
+                    removeToken();
+                    setToken(null);
+                }
+            }
+            setLoading(false);
+        };
+
+        fetchCurrentUser();
+    }, [token]);
+
     return (
         <AuthContext.Provider
-            value={{ currentUser, token, loading, login, logout, register }}
+            value={{
+                currentUser,
+                token,
+                loading,
+                login,
+                logout,
+                register,
+                updateCurrentUser,
+            }}
         >
             {children}
         </AuthContext.Provider>
