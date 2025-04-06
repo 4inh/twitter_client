@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import { PostContext } from "@/context/post/PostContext";
 import { IPostPayloadData } from "@/types/post";
 import { removeAtSymbol } from "@/utils";
+import LoadingIndicator from '../LoadingIndicator';
 
 // const sampleUsers = [
 //     {
@@ -213,7 +214,7 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                     />
 
                     <button
-                        className="text-black-500 p-2 border border-black-500 rounded-lg hover:text-blue-500 hover:border-blue-500"
+                        className="text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"
                         id="add-media-btn"
                         onClick={handleMediaClick}
                     >
@@ -243,13 +244,14 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                     <button
                         className={`px-4 py-2 rounded-full transition-all ${
                             text.trim().length > 0
-                                ? "bg-blue-500 text-white hover:bg-blue-600"
+                                ? "bg-primary text-white hover:bg-primary"
                                 : "bg-gray-300 text-gray-500"
                         }`}
                         onClick={handleSubmit}
                         disabled={isLoading || text.trim().length === 0}
                     >
-                        {isLoading ? "Loading" : "Đăng"}
+                        {isLoading ?  <LoadingIndicator className="border-primary-foreground"/> : "Đăng"}
+                        
                     </button>
                 </div>
             </div>
