@@ -1,8 +1,8 @@
-import { FaTwitter } from "react-icons/fa";
+import { IoLogoSnapchat } from "react-icons/io";
 const Logo = () => {
     return (
-        <FaTwitter
-            className="w-96 h-auto text-blue-500"
+        <IoLogoSnapchat
+            className="w-96 h-auto text-black"
         />
     );
 };
