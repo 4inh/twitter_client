@@ -1,5 +1,4 @@
-import { getUser as getUserSession } from "@/api/auth";
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 import { useNavigate, useParams } from "react-router";
 import { IPost } from "@/types/post";
@@ -9,12 +8,11 @@ import { EditProfileForm } from "./forms/EditProfileForm";
 import { IUser } from "@/types/auth";
 import { addRemoveFriend, getUserByUsername, getUserMe } from "@/api/user";
 import { IoChevronBackOutline } from "react-icons/io5";
+import { AuthContext } from "@/context/auth/AuthContext";
 
 const Profile = () => {
     const navigation = useNavigate();
-    const currentUser = useMemo(() => {
-        return getUserSession();
-    }, []);
+    const { currentUser } = useContext(AuthContext);
     const param = useParams();
     const [user, setUser] = useState<IUser | null>(null);
 
@@ -28,8 +26,8 @@ const Profile = () => {
 
     const isFollowed = useMemo(() => {
         if (!user || !currentUser) return false;
-        return user.friends
-            .map((friend) => friend._id)
+        return user.following
+            .map((following) => following._id)
             .includes(currentUser?._id);
     }, [user, currentUser]);
     const handleFollow = async () => {

@@ -41,7 +41,7 @@ export const getFriends = async (): Promise<FormDataResponse<Friend[]>> => {
 export const addRemoveFriend = async (
     userId: string
 ): Promise<FormDataResponse<IUser>> => {
-    const response = await apiClient.post(`/users/friends/${userId}`);
+    const response = await apiClient.post(`/users/follow/${userId}`);
     return response.data;
 };
 

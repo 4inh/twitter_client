@@ -20,6 +20,8 @@ export type Friend = Pick<
 >;
 export interface IUser extends User {
     friends: Friend[];
+    following: Friend[];
+    followers: Friend[];
     createdAt: string;
     updatedAt: string;
     __v: number;
