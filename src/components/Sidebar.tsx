@@ -1,4 +1,6 @@
-import { FaTwitter } from "react-icons/fa";
+// import { FaTwitter } from "react-icons/fa";
+
+import { IoLogoSnapchat } from "react-icons/io";
 
 import { useNavigate } from "react-router-dom";
 import mainRoutes from "@/routes/MainRoutes";
@@ -12,7 +14,7 @@ const Sidebar = () => {
                 className="w-[275px] font-bold text-xl flex items-center cursor-pointer"
                 onClick={() => navigate("/home")}
             >
-                <FaTwitter className="text-blue-500 w-10 h-10" />
+                <IoLogoSnapchat className="w-10 h-10" />
             </div>
             <ul className="space-y-4 ">
                 {mainRoutes.map((mainRoute) => {
@@ -25,7 +27,7 @@ const Sidebar = () => {
                             key={mainRoute.label}
                             className={`w-[275px] text-xl flex items-center mt-8 cursor-pointer ${
                                 location.pathname === mainRoute.navigateLink
-                                    ? "font-bold text-blue-500"
+                                    ? "font-bold text-black-500"
                                     : ""
                             }`}
                             onClick={() => navigate(mainRoute.navigateLink)}
@@ -37,7 +39,7 @@ const Sidebar = () => {
                 })}
             </ul>
 
-            <button className="text-2xl w-full bg-blue-500 text-white py-2 rounded-full mt-10 hover:bg-blue-800"
+            <button className="text-2xl font-semibold w-full bg-black text-white py-2 rounded-full mt-10 hover:bg-[rgba(0,0,0,0.8)]"
             onClick={() => navigate("/home")}>
                 Đăng
             </button>

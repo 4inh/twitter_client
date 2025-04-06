@@ -6,7 +6,7 @@ const FriendsList: React.FC = () => {
 
     return (
         <div className="w-64 bg-gray-100 h-screen overflow-y-auto">
-            <div className="p-5 bg-blue-600 text-white">
+            <div className="p-5 bg-primary text-white">
                 <h2 className="text-xl font-semibold">Liên hệ</h2>
             </div>
             <div className="">
