@@ -1,5 +1,6 @@
 import { RegisterForm } from "./RegisterForm";
 import { LoginForm } from "./LoginForm";
+import { Link } from "react-router";
 export const AuthForm = () => {
     return (
         <div className="max-w-md text-left space-y-4">
@@ -11,17 +12,17 @@ export const AuthForm = () => {
 
             <p className="text-xs text-gray-500 mb-10">
                 Khi đăng ký, bạn đã đồng ý với{" "}
-                <span className="hover:cursor-pointer hover:underline text-primary font-bold">
+                <Link to={"/terms-of-service"} className="hover:cursor-pointer hover:underline text-primary font-bold">
                     Điều khoản Dịch vụ
-                </span>{" "}
+                </Link>{" "}
                 và{" "}
-                <span className="hover:cursor-pointer hover:underline text-primary font-bold">
+                <Link to={"/privacy-policy"} className="hover:cursor-pointer hover:underline text-primary font-bold">
                     Chính sách Quyền riêng tư
-                </span>
+                </Link>
                 , gồm cả{" "}
-                <span className="hover:cursor-pointer hover:underline text-primary font-bold">
+                <Link to={"/cookie-policy"} className="hover:cursor-pointer hover:underline text-primary font-bold">
                     Sử dụng Cookie
-                </span>
+                </Link>
                 .
             </p>
 

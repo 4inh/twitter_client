@@ -16,12 +16,22 @@ import { ChatProvider } from "./context/chat/ChatProvider";
 import ChatPage from "./pages/ChatPage";
 import SocketTest from "./pages/SocketTest";
 
+import Tos from "./components/policy/tos";
+import Privacy from "./components/policy/Privacy";
+import Cookie from "./components/policy/Cookie";
+
+
 export default function App() {
     return (
         <AuthProvider>
             <BrowserRouter>
                 <Routes>
                     <Route index element={<AuthPage />} />
+
+                    <Route path="/terms-of-service" element={<Tos />} />
+                    <Route path="/privacy-policy" element={<Privacy />} />
+                    <Route path="/cookie-policy" element={<Cookie />} />
+
                     <Route path="/" element={<MainLayout />}>
                         <Route path="/home" element={<HomePage />} />
                         <Route path="/explore" element={<ExplorePage />} />
@@ -55,5 +65,7 @@ export default function App() {
                 </Routes>
             </BrowserRouter>
         </AuthProvider>
+
+
     );
 }
