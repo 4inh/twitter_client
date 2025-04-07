@@ -7,7 +7,7 @@ const ChatHeader: React.FC = () => {
     if (!activeChat) return null;
 
     return (
-        <div className="h-17 bg-blue-200 border-b p-3 flex items-center">
+        <div className="h-17 bg-gray-400 border-b p-3 flex items-center">
             <div className="h-10 w-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
                 {activeChat.profilePicture ? (
                     <img
@@ -16,7 +16,7 @@ const ChatHeader: React.FC = () => {
                         className="h-full w-full object-cover"
                     />
                 ) : (
-                    <div className="h-full w-full flex items-center justify-center bg-blue-500 text-white text-xl font-semibold">
+                    <div className="h-full w-full flex items-center justify-center bg-black text-white text-xl font-semibold">
                         {(activeChat.displayName || activeChat.username)
                             .charAt(0)
                             .toUpperCase()}

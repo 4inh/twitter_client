@@ -70,7 +70,7 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" className="hover:bg-blue-500 hover:text-white">Chỉnh sửa hồ sơ</Button>
+                <Button variant="outline" className="hover:bg-primary hover:text-white">Chỉnh sửa hồ sơ</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-xl">
                 <DialogHeader>
@@ -103,7 +103,7 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                                     accept="image/*"
                                 />
                                 <button
-                                    className="text-blue-500 p-2"
+                                    className="text-primary p-2"
                                     id="add-media-btn"
                                     type="button"
                                     onClick={handleMediaClick}
@@ -124,11 +124,11 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                             id="displayname"
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
-                            className="col-span-3"
+                            className="col-span-3 border border-primary focus:outline-none focus:ring-0 focus:border-primary selection:bg-black selection:text-white"
                         />
                     </div>
                     <DialogFooter>
-                        <Button type="submit" className="hover:bg-blue-800">Lưu thay đổi</Button>
+                        <Button type="submit" className="bg-primary hover:bg-primary hover:opacity-70">Lưu thay đổi</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

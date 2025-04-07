@@ -58,7 +58,7 @@ const ChatMessages: React.FC = () => {
                             >
                                 <div
                                     className={`max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 ${isCurrentUser
-                                        ? "bg-blue-600 text-white"
+                                        ? "bg-primary text-white"
                                         : "bg-white border"
                                         }`}
                                 >
@@ -80,7 +80,7 @@ const ChatMessages: React.FC = () => {
                                         )}
                                     <div
                                         className={`text-xs mt-1 ${isCurrentUser
-                                            ? "text-blue-200"
+                                            ? "text-gray-400"
                                             : "text-gray-500"
                                             }`}
                                     >

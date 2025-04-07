@@ -11,15 +11,15 @@ export const AuthForm = () => {
 
             <p className="text-xs text-gray-500 mb-10">
                 Khi đăng ký, bạn đã đồng ý với{" "}
-                <span className="hover:cursor-pointer hover:underline text-blue-500">
+                <span className="hover:cursor-pointer hover:underline text-primary font-bold">
                     Điều khoản Dịch vụ
                 </span>{" "}
                 và{" "}
-                <span className="hover:cursor-pointer hover:underline text-blue-500">
+                <span className="hover:cursor-pointer hover:underline text-primary font-bold">
                     Chính sách Quyền riêng tư
                 </span>
                 , gồm cả{" "}
-                <span className="hover:cursor-pointer hover:underline text-blue-500">
+                <span className="hover:cursor-pointer hover:underline text-primary font-bold">
                     Sử dụng Cookie
                 </span>
                 .

@@ -8,7 +8,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/Dialog";
 import Input from "../ui/Input";
-import { FaTwitter } from "react-icons/fa";
+import { IoLogoSnapchat } from "react-icons/io";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/context/auth/AuthContext";
@@ -44,7 +44,7 @@ export const LoginForm = () => {
             <DialogTrigger className="w-full">
                 <span
                     // variant="outline"
-                    className="border border-blue-500 block w-full px-4 py-2 rounded-full  text-blue-500 hover:bg-blue-500 hover:text-white hover:cursor-pointer"
+                    className="w-full block px-4 py-2 bg-primary text-primary-foreground rounded-full hover:opacity-70 hover:cursor-pointer"
                     // onClick={() => setIsOpen(true)}
                 >
                     Đăng nhập
@@ -53,7 +53,7 @@ export const LoginForm = () => {
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        <FaTwitter className="text-blue-500 text-5xl" />
+                        <IoLogoSnapchat className="text-primary text-5xl" />
                         <span className="text-center">
                             Đăng nhập vào Twitter
                         </span>
@@ -62,19 +62,19 @@ export const LoginForm = () => {
                     <Input
                         placeholder="Email"
                         onChange={(e) => setEmail(e.target.value)}
-                        className="p-2 border-b border-gray-300 focus:border-blue-500 focus:border-b-2 outline-none"
+                        className="p-2 border-b border-gray-300 focus:border-primary focus:border-b-2 outline-none"
                     />
                     <Input
                         placeholder="Mật khẩu"
                         type="password"
                         onChange={(e) => setPassword(e.target.value)}
-                        className="p-2 border-b border-gray-300 focus:border-blue-500 focus:border-b-2 outline-none"
+                        className="p-2 border-b border-gray-300 focus:border-primary focus:border-b-2 outline-none"
                     />
                     {error && <p className="text-red-500 mb-4">{error}</p>}
                     <div className="grid grid-cols-1 gap-4 mt-5 place-items-center">
                         <Button
                             disabled={isLoading}
-                            className="w-full rounded-full text-white bg-gray-500 hover:bg-blue-500 hover:text-white hover:cursor-pointer transition-all duration-300"
+                            className="w-full rounded-full text-white bg-primary hover:opacity-70 hover:text-white hover:cursor-pointer transition-all duration-300"
                             onClick={handleLogin}
                         >
                             {/* Đăng nhập */}
@@ -82,7 +82,7 @@ export const LoginForm = () => {
                         </Button>
                         <Button
                             variant="outline"
-                            className="w-full rounded-full text-blue-500 hover:bg-blue-500 hover:text-white hover:cursor-pointer mt-2 transition-all duration-300"
+                            className="w-full rounded-full text-primary hover:bg-primary hover:text-white hover:cursor-pointer mt-2 transition-all duration-300"
                             onClick={() => navigate("/")}
                         >
                             Quên mật khẩu?

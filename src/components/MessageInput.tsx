@@ -22,12 +22,12 @@ const MessageInput: React.FC = () => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     disabled={!activeChat}
-                    className="flex-1 p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="flex-1 p-3 border focus:outline-none focus:ring-1 focus:ring-primary"
                 />
                 <button
                     type="submit"
                     disabled={!message.trim() || !activeChat}
-                    className="bg-blue-600 text-white p-3 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:bg-gray-300"
+                    className="bg-primary text-white p-3.5 rounded-r-lg hover:opacity-70 focus:outline-none focus:ring-2 "
                 >
                     Gửi
                 </button>

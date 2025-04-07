@@ -15,8 +15,8 @@ const FriendsList: React.FC = () => {
                         <div
                             key={friend._id}
                             className={`border-b-2 p-4 cursor-pointer flex items-center ${activeChat?._id === friend._id
-                                    ? "bg-blue-200"
-                                    : "hover:bg-gray-200"
+                                    ? "bg-gray-400"
+                                    : "hover:bg-gray-300"
                                 }`}
                             onClick={() => setActiveChat(friend)}
                         >
@@ -28,7 +28,7 @@ const FriendsList: React.FC = () => {
                                         className="h-full w-full object-cover"
                                     />
                                 ) : (
-                                    <div className="h-full w-full flex items-center justify-center bg-blue-500 text-white text-xl font-semibold">
+                                    <div className="h-full w-full flex items-center justify-center bg-primary text-white text-xl font-semibold">
                                         {(friend.displayName || friend.username)
                                             .charAt(0)
                                             .toUpperCase()}
