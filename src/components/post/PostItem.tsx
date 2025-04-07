@@ -20,7 +20,7 @@ import { IPost } from "@/types/post";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
-import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 
 function PostItem({ post, user }: { post: IPost; user: User | null }) {
     const [open, setOpen] = useState(false);
@@ -126,7 +126,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                     <DropdownMenuTrigger asChild>
                         <button
                             role="button"
-                            className="w-12 h-12 text-md hover:rounded-full hover:bg-blue-100"
+                            className="w-12 h-12 text-md hover:rounded-full hover:bg-primary-foreground"
                         >
                             •••
                         </button>
@@ -145,17 +145,17 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                                     onClick={() => {
                                         navigation(`/posts/${post._id}/edit`);
                                     }}
-                                    role="button"
                                     className="cursor-pointer"
+                                    role="button"
                                 >
                                     Chỉnh sửa
                                 </DropdownMenuItem>
                             </>
                         )}
-                        <DropdownMenuItem role="button">
+                        <DropdownMenuItem role="button" className="cursor-pointer">
                             Báo cáo
                         </DropdownMenuItem>
-                        <DropdownMenuItem role="button">
+                        <DropdownMenuItem role="button" className="cursor-pointer">
                             Thông tin
                         </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -180,6 +180,7 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                                 Hủy
                             </Button>
                             <Button
+                                className="bg-primary hover:opacity-90"
                                 variant="default"
                                 onClick={handleDelete}
                                 role="button"
@@ -205,9 +206,8 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
             </div>
             <div className="flex items-center justify-between py-2">
                 {/* Comments Button */}
-                <div className="flex gap-1" role="button">
+                <div className="flex gap-1 hover:border-b-2" role="button">
                     <button
-                        className=" hover:text-blue-500"
                         onClick={() => {
                             console.log("Comment button clicked"); // Add your logic
                         }}
@@ -219,14 +219,14 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
 
                 {/* Likes Button */}
                 <div className="flex gap-1" role="button">
-                    <button
-                        className={` hover:text-blue-500 ${
-                            isLiked ? "text-blue-500" : "text-black"
-                        }`}
-                        onClick={handleLikePost}
-                    >
-                        <AiOutlineLike />
+                    <button onClick={handleLikePost}>
+                        {isLiked ? (
+                            <AiFillLike className="text-primary hover:scale-150 transition-transform duration-200" />
+                        ) : (
+                            <AiOutlineLike className="text-primary hover:scale-150 transition-transform duration-200" />
+                        )}
                     </button>
+
                     <p>{post.likes.length}</p>
                 </div>
             </div>

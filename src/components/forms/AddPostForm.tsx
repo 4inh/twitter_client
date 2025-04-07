@@ -242,17 +242,20 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                         </svg>
                     </button>
                     <button
-                        className={`px-4 py-2 rounded-full transition-all ${
-                            text.trim().length > 0
-                                ? "bg-primary text-white hover:bg-primary"
-                                : "bg-gray-300 text-gray-500"
-                        }`}
+                        className={`px-4 py-2 rounded-full transition-all min-w-[72px] flex justify-center items-center ${text.trim().length > 0
+                            ? "bg-primary text-white hover:bg-primary"
+                            : "bg-gray-300 text-gray-500"
+                            }`}
                         onClick={handleSubmit}
                         disabled={isLoading || text.trim().length === 0}
                     >
-                        {isLoading ?  <LoadingIndicator className="border-primary-foreground"/> : "Đăng"}
-                        
+                        {isLoading ? (
+                            <LoadingIndicator className="w-5 h-5 border-primary-foreground" />
+                        ) : (
+                            "Đăng"
+                        )}
                     </button>
+
                 </div>
             </div>
         </div>

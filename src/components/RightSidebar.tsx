@@ -24,7 +24,7 @@ const RightSidebar = () => {
             <ul className="space-y-2">
                 {topTags.map((topTag) => (
                     <li key={topTag._id}>
-                        <span className="hover:text-blue-500 cursor-pointer" title={topTag._id}>
+                        <span className="hover:border-b-2 cursor-pointer" title={topTag._id}>
                             {topTag._id}
                         </span>
 
