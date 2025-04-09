@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useRef, useContext } from "react";
+import { ChangeEvent, useState, useRef, useContext, useEffect } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import AutoGrowTextArea from "../AutoGrowTextArea";
 import { IUser } from "@/types/auth";
@@ -7,6 +7,7 @@ import { PostContext } from "@/context/post/PostContext";
 import { IPostPayloadData } from "@/types/post";
 import { removeAtSymbol } from "@/utils";
 import LoadingIndicator from '../LoadingIndicator';
+import EmojiPicker from "emoji-picker-react";
 
 // const sampleUsers = [
 //     {
@@ -130,6 +131,34 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
         }
     };
 
+    const insertSymbol = (symbol: string) => {
+        const textarea = document.querySelector("textarea");
+        if (!textarea) return;
+
+        const start = textarea.selectionStart || 0;
+        const end = textarea.selectionEnd || 0;
+        const before = text.slice(0, start);
+        const after = text.slice(end);
+
+        const newText = before + symbol + after;
+        setText(newText);
+
+        setTimeout(() => {
+            textarea.focus();
+            textarea.setSelectionRange(start + 1, start + 1);
+        }, 0);
+    };
+
+    const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+    const toggleEmojiPicker = () => {
+        setShowEmojiPicker((prev) => !prev);
+    };
+
+    const onEmojiClick = (emojiData: any) => {
+        setText((prev) => prev + emojiData.emoji);
+        setShowEmojiPicker(false);
+    };
     return (
         <div className="p-5 flex gap-4 border-transparent">
             <Link to={`/profile/${currentUser.username}`}>
@@ -202,48 +231,75 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                     </div>
                 )}
 
-                <div className="w-full flex justify-between items-center">
-                    {/* Hidden file input */}
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        onChange={handleFileChange}
-                        className="hidden"
-                        multiple
-                        accept="image/*,video/*"
-                    />
+                <div className="w-full flex justify-between items-center relative">
+                    <div className="flex items-center gap-x-2 relative">
+                        {/* Hidden file input */}
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            onChange={handleFileChange}
+                            className="hidden"
+                            multiple
+                            accept="image/*,video/*"
+                        />
+
+                        <button
+                            className="w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"
+                            id="add-media-btn"
+                            onClick={handleMediaClick}
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <rect
+                                    x="3"
+                                    y="3"
+                                    width="18"
+                                    height="18"
+                                    rx="2"
+                                    ry="2"
+                                ></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </button>
+                        <button
+                            className={"w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"}
+                            onClick={() => insertSymbol("@")}
+                        >
+                            @
+                        </button>
+
+                        <button
+                            className={"w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"}
+                            onClick={() => insertSymbol("#")}
+                        >
+                            #
+                        </button>
+                        <button
+                            className="w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"
+                            onClick={toggleEmojiPicker}
+                        >
+                            😊
+                        </button>
+                        {showEmojiPicker && (
+                            <div className="absolute top-12 z-50">
+                                <EmojiPicker onEmojiClick={onEmojiClick} />
+                            </div>
+                        )}
+                    </div>
 
                     <button
-                        className="text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"
-                        id="add-media-btn"
-                        onClick={handleMediaClick}
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <rect
-                                x="3"
-                                y="3"
-                                width="18"
-                                height="18"
-                                rx="2"
-                                ry="2"
-                            ></rect>
-                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                            <polyline points="21 15 16 10 5 21"></polyline>
-                        </svg>
-                    </button>
-                    <button
-                        className={`px-4 py-2 rounded-full transition-all min-w-[72px] flex justify-center items-center ${text.trim().length > 0
-                            ? "bg-primary text-white hover:bg-primary"
+                        className={`px-4 py-2 rounded-full transition-all min-w-[86px] flex justify-center items-center ${text.trim().length > 0
+                            ? "bg-primary text-white hover:bg-primary hover:opacity-90"
                             : "bg-gray-300 text-gray-500"
                             }`}
                         onClick={handleSubmit}
@@ -255,7 +311,6 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                             "Đăng"
                         )}
                     </button>
-
                 </div>
             </div>
         </div>

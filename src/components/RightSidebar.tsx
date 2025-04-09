@@ -23,12 +23,14 @@ const RightSidebar = () => {
             <h3 className="text-lg font-bold mb-3">Những điều đang diễn ra</h3>
             <ul className="space-y-2">
                 {topTags.map((topTag) => (
-                    <li key={topTag._id}>
-                        <span className="hover:border-b-2 cursor-pointer" title={topTag._id}>
+                    <li key={topTag._id}
+                    className="rounded p-2 hover:bg-gray-100 cursor-pointer"
+                    >
+                        <span className="font-bold" title={topTag._id}>
                             {topTag._id}
                         </span>
 
-                        {" - "}
+                        <br />
                         {topTag.count} bài đăng
                     </li>
 

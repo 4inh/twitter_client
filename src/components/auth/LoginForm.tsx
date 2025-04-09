@@ -12,6 +12,8 @@ import { IoLogoSnapchat } from "react-icons/io";
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "@/context/auth/AuthContext";
+import LoadingIndicator from "@/components/LoadingIndicator";
+
 export const LoginForm = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState<string>("");
@@ -45,7 +47,7 @@ export const LoginForm = () => {
                 <span
                     // variant="outline"
                     className="w-full block px-4 py-2 bg-primary text-primary-foreground rounded-full hover:opacity-70 hover:cursor-pointer"
-                    // onClick={() => setIsOpen(true)}
+                // onClick={() => setIsOpen(true)}
                 >
                     Đăng nhập
                 </span>
@@ -77,9 +79,14 @@ export const LoginForm = () => {
                             className="w-full rounded-full text-white bg-primary hover:opacity-70 hover:text-white hover:cursor-pointer transition-all duration-300"
                             onClick={handleLogin}
                         >
-                            {/* Đăng nhập */}
-                            {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
+                            {isLoading ? (
+                                <><LoadingIndicator className="w-5 h-5 border-primary-foreground" />
+                                </>
+                            ) : (
+                                "Đăng nhập"
+                            )}
                         </Button>
+
                         <Button
                             variant="outline"
                             className="w-full rounded-full text-primary hover:bg-primary hover:text-white hover:cursor-pointer mt-2 transition-all duration-300"
