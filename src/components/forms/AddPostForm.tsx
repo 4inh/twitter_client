@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useRef, useContext, useEffect } from "react";
+import { ChangeEvent, useState, useRef, useContext } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar";
 import AutoGrowTextArea from "../AutoGrowTextArea";
 import { IUser } from "@/types/auth";
@@ -6,42 +6,8 @@ import { Link } from "react-router";
 import { PostContext } from "@/context/post/PostContext";
 import { IPostPayloadData } from "@/types/post";
 import { removeAtSymbol } from "@/utils";
-import LoadingIndicator from '../LoadingIndicator';
-import EmojiPicker from "emoji-picker-react";
-
-// const sampleUsers = [
-//     {
-//         id: "1",
-//         name: "John Doe",
-//         username: "johndoe",
-//         avatar: "https://placehold.co/32x32",
-//     },
-//     {
-//         id: "2",
-//         name: "Jane Smith",
-//         username: "janesmith",
-//         avatar: "https://placehold.co/32x32",
-//     },
-//     {
-//         id: "3",
-//         name: "Robert Johnson",
-//         username: "rjohnson",
-//         avatar: "https://placehold.co/32x32",
-//     },
-//     {
-//         id: "4",
-//         name: "Emily Davis",
-//         username: "emilyd",
-//         avatar: "https://placehold.co/32x32",
-//     },
-//     {
-//         id: "5",
-//         name: "Michael Wilson",
-//         username: "mikewilson",
-//         avatar: "https://placehold.co/32x32",
-//     },
-// ];
-
+import LoadingIndicator from "../LoadingIndicator";
+import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 interface MediaFile {
     file: File;
     preview: string;
@@ -155,7 +121,7 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
         setShowEmojiPicker((prev) => !prev);
     };
 
-    const onEmojiClick = (emojiData: any) => {
+    const onEmojiClick = (emojiData: EmojiClickData) => {
         setText((prev) => prev + emojiData.emoji);
         setShowEmojiPicker(false);
     };
@@ -272,14 +238,18 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                             </svg>
                         </button>
                         <button
-                            className={"w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"}
+                            className={
+                                "w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"
+                            }
                             onClick={() => insertSymbol("@")}
                         >
                             @
                         </button>
 
                         <button
-                            className={"w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"}
+                            className={
+                                "w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"
+                            }
                             onClick={() => insertSymbol("#")}
                         >
                             #
@@ -298,10 +268,11 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                     </div>
 
                     <button
-                        className={`px-4 py-2 rounded-full transition-all min-w-[86px] flex justify-center items-center ${text.trim().length > 0
-                            ? "bg-primary text-white hover:bg-primary hover:opacity-90"
-                            : "bg-gray-300 text-gray-500"
-                            }`}
+                        className={`px-4 py-2 rounded-full transition-all min-w-[86px] flex justify-center items-center ${
+                            text.trim().length > 0
+                                ? "bg-primary text-white hover:bg-primary hover:opacity-90"
+                                : "bg-gray-300 text-gray-500"
+                        }`}
                         onClick={handleSubmit}
                         disabled={isLoading || text.trim().length === 0}
                     >

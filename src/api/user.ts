@@ -45,13 +45,11 @@ export const addRemoveFriend = async (
     return response.data;
 };
 
-export const getSuggestedUsers = async (): Promise<IUser[]> => {
-    try {
-        const response = await axios.get("/users/suggestions");
-        console.log("Fetched users:", response.data);
-        return Array.isArray(response.data) ? response.data : [];
-    } catch (error) {
-        console.error("Error fetching suggested users:", error);
-        return [];
-    }
+export const getMostFollowedUsers = async (): Promise<
+    FormDataResponse<IUser[]>
+> => {
+    const response = await apiClient.get("/users/most-followers");
+    console.log({ Usersuggestions: response });
+
+    return response.data;
 };

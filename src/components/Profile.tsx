@@ -148,14 +148,6 @@ const Profile = () => {
                     <p className="text-gray-500 text-sm">
                         📅 Tham gia tháng {joinedMonth} năm {joinedYear}
                     </p>
-
-                    {/* Follow Info
-          <div className="flex space-x-4 mt-2 text-gray-700">
-            <p><span className="font-bold">{user.following}</span> Đang theo dõi</p>
-            <p><span className="font-bold">{user.followers}</span> Người theo dõi</p>
-          </div> */}
-
-                    {/* Edit Profile Button */}
                 </div>
             </div>
 
@@ -165,7 +157,7 @@ const Profile = () => {
                     postsOfCurrentUser.map((post, index) => (
                         <div
                             key={post._id}
-                            className={`relative w-full block border-y
+                            className={`relative w-full  p-5 block border-y
                 ${index === 0 ? "border-t" : "border-t-0"}`}
                             onClick={(e) => {
                                 if (

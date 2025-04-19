@@ -11,6 +11,7 @@ import {
 } from "@/api/auth";
 import { getUserMe } from "@/api/user";
 import { AuthContext } from "./AuthContext";
+import socket from "@/config/socketConfig";
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     children,
@@ -21,6 +22,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
     const login = async (email: string, password: string) => {
         const res = await authLogin(email, password);
+        console.log({ loginResponse: res });
+
         setSessionToken(res.token);
         setSessionUser(res.user);
         setToken(res.token);
@@ -64,7 +67,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
         fetchCurrentUser();
     }, [token]);
-
+    useEffect(() => {
+        if (currentUser?._id && token) {
+            socket.emit("authenticate", currentUser._id);
+        }
+    }, [currentUser?._id, token]);
     return (
         <AuthContext.Provider
             value={{

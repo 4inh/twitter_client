@@ -11,25 +11,9 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
     const { currentUser, token } = useContext(AuthContext);
-    // const [socket, setSocket] = useState<Socket | null>(null);
     const [friends, setFriends] = useState<Friend[]>([]);
     const [activeChat, setActiveChat] = useState<Friend | null>(null);
     const [messages, setMessages] = useState<Message[]>([]);
-
-    // Initialize socket connection
-    // useEffect(() => {
-    //     if (currentUser && !socket) {
-    //         const newSocket = io("http://localhost:5000", {
-    //             query: { token },
-    //         });
-
-    //         setSocket(newSocket);
-
-    //         return () => {
-    //             newSocket.disconnect();
-    //         };
-    //     }
-    // }, [currentUser, token, socket]);
 
     // Fetch friends list
     useEffect(() => {

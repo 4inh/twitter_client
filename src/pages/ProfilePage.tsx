@@ -6,9 +6,7 @@ const ProfilePage = () => {
     return (
         <div className="flex flex-1">
             <Profile />
-            {/* <div className="">
-          <FollowSuggestions/>
-          </div> */}
+
             <RightSidebar />
         </div>
     );

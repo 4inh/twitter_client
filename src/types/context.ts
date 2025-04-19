@@ -1,6 +1,6 @@
 import { Friend, IUser } from "./auth";
 import { Message } from "./message";
-import { IEditPostPayloadData, IPost, IPostPayloadData } from "./post";
+import { IEditPostPayloadData, IPost, IPostPayloadData, ITopTag } from "./post";
 
 export interface AuthContextType {
     currentUser: IUser | null;
@@ -31,6 +31,22 @@ export interface PostContextType {
     editPost: (postId: string, payload: IEditPostPayloadData) => Promise<void>;
     createPost: (payload: IPostPayloadData) => Promise<void>;
     resetError: () => void;
+    topTags: ITopTag[];
     getCurrentPost: (postId: string) => Promise<void>;
+    toggleLikePost: (postId: string) => Promise<void>;
+    commentOnPost: (postId: string, text: string) => Promise<void>;
+    deletePost: (postId: string) => Promise<void>;
     currentPost: IPost | null;
+}
+export interface VideoCallContextType {
+    isIncomingCall: boolean;
+    isCallActive: boolean;
+    callPartner: { _id: string; name: string } | null;
+    localStream: MediaStream | null;
+    remoteStream: MediaStream | null;
+    startCall: (friendId: string, friendName: string) => void;
+    answerCall: () => void;
+    rejectCall: () => void;
+    endCall: () => void;
+    connectionStatus: string;
 }

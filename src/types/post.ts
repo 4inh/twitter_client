@@ -14,7 +14,7 @@ export interface IPost {
     updatedAt: string;
     __v: number;
 }
-
+export type IPostItem = Omit<IPost, "comments" | "likes">;
 export interface Author {
     _id: string;
     username: string;

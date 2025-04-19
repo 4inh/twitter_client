@@ -1,5 +1,6 @@
 import { ChatContext } from "@/context/chat/ChatContext";
 import React, { useContext } from "react";
+import { CallButton } from "./VideoCall";
 
 const ChatHeader: React.FC = () => {
     const { activeChat } = useContext(ChatContext);
@@ -23,10 +24,11 @@ const ChatHeader: React.FC = () => {
                     </div>
                 )}
             </div>
-            <div>
+            <div className="w-full flex justify-between">
                 <h2 className="font-semibold text-lg">
                     {activeChat.displayName || activeChat.username}
                 </h2>
+                <CallButton friend={activeChat} />
             </div>
         </div>
     );

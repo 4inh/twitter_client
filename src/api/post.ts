@@ -62,3 +62,12 @@ export const likePost = async (
     const response = await apiClient.post(`posts/${postId}/like`);
     return response.data;
 };
+export const commentPost = async (
+    postId: string,
+    text: string
+): Promise<FormDataResponse<IPost>> => {
+    const response = await apiClient.post(`posts/${postId}/comment`, {
+        text,
+    });
+    return response.data;
+};

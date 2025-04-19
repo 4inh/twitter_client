@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AddPostForm from "./forms/AddPostForm";
 
 import PostItem from "./post/PostItem";
@@ -22,8 +22,8 @@ const MainContent = () => {
             {/* Bài đăng */}
             {posts.map((post, index) => (
                 <div
-                    key={post._id}
-                    className={`relative w-full block border-y
+                    key={`${post._id} ${index}`}
+                    className={`relative w-full block border-y p-5 hover:bg-gray-100 hover:cursor-pointer
                         ${index === 0 ? "border-t" : "border-t-0"}`}
                     onClick={(e) => {
                         if (

@@ -1,5 +1,19 @@
-import { addPost, getPost, getPosts, updatePost } from "@/api/post";
-import { IEditPostPayloadData, IPost, IPostPayloadData } from "@/types/post";
+import {
+    addPost,
+    commentPost,
+    getPost,
+    getPosts,
+    likePost,
+    updatePost,
+    deletePost as deletePostAPI,
+    getTopTags as getTopTagsAPI,
+} from "@/api/post";
+import {
+    IEditPostPayloadData,
+    IPost,
+    IPostPayloadData,
+    ITopTag,
+} from "@/types/post";
 import axios from "axios";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import { PostContext } from "./PostContext";
@@ -14,6 +28,19 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const { currentUser } = useContext(AuthContext);
+    const [topTags, setTopTags] = useState<ITopTag[]>([]);
+
+    const getTopTags = async (): Promise<void> => {
+        try {
+            const res = await getTopTagsAPI();
+            if (res.data) {
+                setTopTags(res.data);
+            }
+        } catch (error) {
+            console.log("Error", error);
+        }
+    };
+
     const createPost = async (payload: IPostPayloadData): Promise<void> => {
         setLoading(true);
         setError(null);
@@ -72,7 +99,6 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({
             setLoading(false);
         }
     };
-
     const editPost = async (
         postId: string,
         payload: IEditPostPayloadData
@@ -129,6 +155,16 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({
             setLoading(false);
         }
     };
+    const deletePost = async (postId: string) => {
+        try {
+            const res = await deletePostAPI(postId);
+            const updatePosts = posts.filter((post) => post._id !== postId);
+            setPosts(updatePosts);
+            console.log("Item deleted", res);
+        } catch (error) {
+            console.log("Error", error);
+        }
+    };
     const getCurrentPost = async (postId: string): Promise<void> => {
         setLoading(true);
 
@@ -151,7 +187,62 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({
             setLoading(false);
         }
     };
+    const toggleLikePost = async (postId: string): Promise<void> => {
+        try {
+            const res = await likePost(postId);
+            if (!res.data) {
+                console.log("No data response at like Post");
 
+                return;
+            }
+            const likedPost = posts.find((post) => post._id === res.data?._id);
+            if (!likedPost) {
+                console.log("Liked post not found " + res.data?._id);
+
+                return;
+            }
+            const updatePosts = posts.map((post) =>
+                post._id === likedPost._id ? { ...(res.data as IPost) } : post
+            );
+            setPosts(updatePosts);
+        } catch (error) {
+            console.log("Error", error);
+        }
+    };
+    const commentOnPost = async (
+        postId: string,
+        text: string
+    ): Promise<void> => {
+        try {
+            const res = await commentPost(postId, text);
+            if (!res.data) {
+                console.log("No data response at like Post");
+
+                return;
+            }
+
+            const commentedPost = posts.find(
+                (post) => post._id === res.data?._id
+            );
+
+            if (!commentedPost) {
+                console.log("commentedPost not found " + res.data?._id);
+
+                return;
+            }
+            const updatePosts = posts.map((post) =>
+                post._id === commentedPost._id
+                    ? { ...(res.data as IPost) }
+                    : post
+            );
+            setPosts(updatePosts);
+            if (currentPost) {
+                setCurrentPost(res.data as IPost);
+            }
+        } catch (error) {
+            console.log("Error", error);
+        }
+    };
     const resetError = () => {
         setError(null);
     };
@@ -188,6 +279,9 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({
         };
         fetchPosts();
     }, []);
+    useEffect(() => {
+        getTopTags();
+    }, []);
     return (
         <PostContext.Provider
             value={{
@@ -199,6 +293,10 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({
                 editPost,
                 getCurrentPost,
                 currentPost,
+                toggleLikePost,
+                commentOnPost,
+                deletePost,
+                topTags,
             }}
         >
             {children}

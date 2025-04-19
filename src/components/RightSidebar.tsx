@@ -1,39 +1,24 @@
-import { getTopTags } from "@/api/post";
-import { ITopTag } from "@/types/post";
-import { useEffect, useState } from "react";
+import { PostContext } from "@/context/post/PostContext";
+import { useContext } from "react";
 
 const RightSidebar = () => {
-    const [topTags, setTopTags] = useState<ITopTag[]>([]);
+    const { topTags } = useContext(PostContext);
 
-    useEffect(() => {
-        const fetchTopTags = async () => {
-            try {
-                const res = await getTopTags();
-                if (res.data) {
-                    setTopTags(res.data);
-                }
-            } catch (error) {
-                console.log("Error", error);
-            }
-        };
-        fetchTopTags();
-    }, []);
     return (
         <div className="w-80 bg-white p-5 border-l  min-h-screen">
             <h3 className="text-lg font-bold mb-3">Những điều đang diễn ra</h3>
             <ul className="space-y-2">
                 {topTags.map((topTag) => (
-                    <li key={topTag._id}
-                    className="rounded p-2 hover:bg-gray-100 cursor-pointer"
+                    <li
+                        key={topTag._id}
+                        className="rounded p-2 hover:bg-gray-100 cursor-pointer"
                     >
                         <span className="font-bold" title={topTag._id}>
                             {topTag._id}
                         </span>
-
                         <br />
                         {topTag.count} bài đăng
                     </li>
-
                 ))}
             </ul>
             <button className="mt-5 w-full bg-primary text-white py-2 rounded-lg hover:bg-[rgba(0,0,0,0.8)]">
