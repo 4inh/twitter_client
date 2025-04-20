@@ -70,13 +70,19 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant="outline" className="hover:bg-primary hover:text-white">Chỉnh sửa hồ sơ</Button>
+                <Button
+                    variant="outline"
+                    className="hover:bg-primary hover:text-white"
+                >
+                    Chỉnh sửa hồ sơ
+                </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-xl">
                 <DialogHeader>
                     <DialogTitle>Chỉnh sửa</DialogTitle>
                     <DialogDescription>
-                        Thực hiện các thay đổi cho hồ sơ của bạn ở đây. Nhấp vào Lưu khi bạn hoàn thành.
+                        Thực hiện các thay đổi cho hồ sơ của bạn ở đây. Nhấp vào
+                        Lưu khi bạn hoàn thành.
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleEditProfile} className="grid gap-4 py-4">
@@ -94,7 +100,7 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                                     {currentUser?.email.at(0)}
                                 </AvatarFallback>
                             </Avatar>
-                            <div className="hidden absolute inset-0 group-hover:flex items-center justify-center">
+                            <div className="hidden absolute rounded-full inset-0 bg-[rgba(0,0,0,.7)] group-hover:flex items-center justify-center">
                                 <input
                                     type="file"
                                     ref={fileInputRef}
@@ -128,7 +134,12 @@ export function EditProfileForm({ currentUser }: { currentUser: User }) {
                         />
                     </div>
                     <DialogFooter>
-                        <Button type="submit" className="bg-primary hover:bg-primary hover:opacity-70">Lưu thay đổi</Button>
+                        <Button
+                            type="submit"
+                            className="bg-primary hover:bg-primary hover:opacity-70"
+                        >
+                            Lưu thay đổi
+                        </Button>
                     </DialogFooter>
                 </form>
             </DialogContent>

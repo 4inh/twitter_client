@@ -57,13 +57,13 @@ const Sidebar = () => {
                         );
                     })}
                 </ul>
-
+                {/* 
                 <button
                     className="text-2xl font-semibold w-full bg-black text-white py-2 rounded-full  hover:bg-[rgba(0,0,0,0.8)]"
                     onClick={() => navigate("/home")}
                 >
                     Đăng
-                </button>
+                </button> */}
             </div>
             {currentUser && (
                 <DropdownMenu open={open} onOpenChange={setOpen}>
@@ -106,7 +106,7 @@ const Sidebar = () => {
             <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogContent>
                     <DialogHeader>
-                        <DialogTitle>Đăng xuất khỏi </DialogTitle>
+                        <DialogTitle>Đăng xuất khỏi twitter</DialogTitle>
                     </DialogHeader>
                     <DialogFooter>
                         <Button
