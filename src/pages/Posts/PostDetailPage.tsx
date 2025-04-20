@@ -9,7 +9,8 @@ import { IPost } from "@/types/post";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-
+import { LuAtSign, LuChevronLeft, LuHash } from "react-icons/lu";
+import { LuSend } from "react-icons/lu";
 const PostDetailPage = () => {
     const param = useParams();
     const { currentPost, getCurrentPost } = useContext(PostContext);
@@ -39,7 +40,9 @@ const PostDetailPage = () => {
     return (
         <div className="flex-1 bg-white relative">
             <header className="px-5 py-3 flex gap-4 items-center sticky left-0 top-0 bg-white z-50">
-                <button onClick={() => navigation(-1)}>back</button>
+                <button onClick={() => navigation(-1)}>
+                    <LuChevronLeft />
+                </button>
                 <h2 className="text-xl font-bold ">Bài đăng</h2>
             </header>
 
@@ -51,7 +54,7 @@ const PostDetailPage = () => {
                     <div className="pt-2 space-y-4 border-t">
                         {currentPost.comments.length === 0 && (
                             <p className="text-sm text-gray-500">
-                                No comments yet.
+                                Chưa có bình luận
                             </p>
                         )}
 
@@ -161,7 +164,7 @@ function CommentInput({
                             }
                             onClick={() => insertSymbol("@")}
                         >
-                            @
+                            <LuAtSign className="w-5 h-5" />
                         </button>
 
                         <button
@@ -170,13 +173,13 @@ function CommentInput({
                             }
                             onClick={() => insertSymbol("#")}
                         >
-                            #
+                            <LuHash className="w-5 h-5" />
                         </button>
                         <button
                             className="w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"
                             onClick={toggleEmojiPicker}
                         >
-                            😊
+                            <span className="w-5 h-5">😊</span>
                         </button>
                         {showEmojiPicker && (
                             <div className="absolute top-12 z-50">
@@ -189,7 +192,7 @@ function CommentInput({
                         variant={isDisabled ? "outline" : "default"}
                         disabled={isDisabled}
                     >
-                        Post Comment
+                        <LuSend />
                     </Button>
                 </div>
             </div>

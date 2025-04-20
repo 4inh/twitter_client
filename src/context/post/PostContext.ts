@@ -8,6 +8,7 @@ export const PostContext = createContext<PostContextType>({
     error: null,
     loading: false,
     posts: [],
+    setPosts: () => {},
     resetError: () => {},
     currentPost: null,
     getCurrentPost: async () => {},

@@ -1,12 +1,33 @@
 import { FormDataResponse } from "@/types";
 import apiClient from "./apiClient";
-import { IDeletePost, IPost, ITopTag } from "@/types/post";
+import { IDeletePost, IPost, ITopTag, PaginatedResponse } from "@/types/post";
 
-export const getPosts = async (): Promise<FormDataResponse<IPost[]>> => {
-    const response = await apiClient.get("/posts");
+export const getPosts = async (
+    page: number = 1,
+    limit: number = 10
+): Promise<FormDataResponse<PaginatedResponse>> => {
+    const response = await apiClient.get("/posts", {
+        params: { page, limit },
+    });
     return response.data;
 };
 
+// Helper function to get the next page of posts
+export const getNextPage = async (
+    currentPage: number,
+    limit: number = 10
+): Promise<FormDataResponse<PaginatedResponse>> => {
+    return getPosts(currentPage + 1, limit);
+};
+
+// Helper function to get the previous page of posts
+export const getPrevPage = async (
+    currentPage: number,
+    limit: number = 10
+): Promise<FormDataResponse<PaginatedResponse>> => {
+    if (currentPage <= 1) return getPosts(1, limit);
+    return getPosts(currentPage - 1, limit);
+};
 export const getPostsMe = async (): Promise<FormDataResponse<IPost[]>> => {
     const response = await apiClient.get("/posts/me");
     return response.data;

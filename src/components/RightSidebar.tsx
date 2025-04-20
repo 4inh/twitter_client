@@ -5,25 +5,26 @@ const RightSidebar = () => {
     const { topTags } = useContext(PostContext);
 
     return (
-        <div className="w-80 bg-white p-5 border-l  min-h-screen">
-            <h3 className="text-lg font-bold mb-3">Những điều đang diễn ra</h3>
-            <ul className="space-y-2">
-                {topTags.map((topTag) => (
-                    <li
-                        key={topTag._id}
-                        className="rounded p-2 hover:bg-gray-100 cursor-pointer"
-                    >
-                        <span className="font-bold" title={topTag._id}>
-                            {topTag._id}
-                        </span>
-                        <br />
-                        {topTag.count} bài đăng
-                    </li>
-                ))}
-            </ul>
-            <button className="mt-5 w-full bg-primary text-white py-2 rounded-lg hover:bg-[rgba(0,0,0,0.8)]">
-                Hiển thị thêm
-            </button>
+        <div className="w-80 bg-white border-l  min-h-screen relative">
+            <div className="sticky top-0 left-0 right-0  p-5">
+                <h3 className="text-lg font-bold mb-3">
+                    Những điều đang diễn ra
+                </h3>
+                <ul className="">
+                    {topTags.map((topTag) => (
+                        <li
+                            key={topTag._id}
+                            className="rounded p-2 hover:bg-gray-100 cursor-pointer"
+                        >
+                            <span className="font-bold" title={topTag._id}>
+                                {topTag._id}
+                            </span>
+                            <br />
+                            {topTag.count} bài đăng
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };

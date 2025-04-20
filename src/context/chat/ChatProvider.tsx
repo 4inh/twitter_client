@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, ReactNode } from "react";
 import { Friend } from "@/types/auth";
-import { Message } from "@/types/message";
+import { IMessagePayloadData, Message } from "@/types/message";
 import { AuthContext } from "../auth/AuthContext";
 import { ChatContext } from "./ChatContext";
 import { getFriends } from "@/api/user";
@@ -83,11 +83,24 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({
         }
     }, [activeChat, token]);
 
-    const sendMessage = async (content: string, media: string[] = []) => {
+    const sendMessage = async (payload: IMessagePayloadData) => {
         if (!activeChat || !currentUser || !token) return;
+        const formData = new FormData();
+
+        // Add text fields
+        formData.append("content", payload.content);
+        formData.append("receiverId", activeChat._id);
+        console.log("payload.media ", payload.media);
+
+        // Add media files if provided
+        if (payload.media && payload.media.length > 0) {
+            payload.media.forEach((file) => {
+                formData.append("media", file);
+            });
+        }
 
         try {
-            await postMessage({ content, media, receiverId: activeChat._id });
+            await postMessage(formData);
         } catch (err) {
             console.error("Failed to send message:", err);
         }

@@ -9,3 +9,7 @@ export interface Message {
     createdAt: string;
     updatedAt: string;
 }
+export interface IMessagePayloadData {
+    content: string;
+    media?: File[];
+}

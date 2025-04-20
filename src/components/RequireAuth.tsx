@@ -4,7 +4,6 @@ import { Navigate } from "react-router";
 import LoadingIndicator from "./LoadingIndicator";
 const RequireAuth: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const { currentUser, loading } = useContext(AuthContext);
-    console.log({ RequireAuth: currentUser });
 
     if (loading) {
         return (

@@ -267,11 +267,11 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const postData = await getPosts();
+                const postData = await getPosts(1, 10);
                 // console.log(currentUser);
 
                 if (postData.data) {
-                    setPosts(postData.data);
+                    setPosts(postData.data.posts);
                 }
             } catch (error) {
                 console.log("Error", error);
@@ -286,6 +286,7 @@ export const PostProvider: React.FC<{ children: ReactNode }> = ({
         <PostContext.Provider
             value={{
                 posts,
+                setPosts,
                 loading,
                 error,
                 createPost,

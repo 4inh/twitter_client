@@ -1,5 +1,17 @@
 import { MentionUser, User } from "./auth";
 
+export interface PaginationData {
+    totalPosts: number;
+    totalPages: number;
+    currentPage: number;
+    postsPerPage: number;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+}
+export interface PaginatedResponse {
+    posts: IPost[];
+    pagination: PaginationData;
+}
 export interface IPost {
     _id: string;
     content: string;

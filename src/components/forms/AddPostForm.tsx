@@ -8,12 +8,8 @@ import { IPostPayloadData } from "@/types/post";
 import { removeAtSymbol } from "@/utils";
 import LoadingIndicator from "../LoadingIndicator";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
-interface MediaFile {
-    file: File;
-    preview: string;
-    type: string;
-}
-
+import { MediaFile } from "@/types";
+import { LuImage, LuAtSign, LuHash, LuX } from "react-icons/lu";
 const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
     const [text, setText] = useState<string>("");
     const [mediaFiles, setMediaFiles] = useState<MediaFile[]>([]);
@@ -167,30 +163,7 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                                     className="absolute top-1 right-1 bg-black bg-opacity-50 rounded-full p-1 text-white"
                                     onClick={() => removeMedia(index)}
                                 >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="16"
-                                        height="16"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    >
-                                        <line
-                                            x1="18"
-                                            y1="6"
-                                            x2="6"
-                                            y2="18"
-                                        ></line>
-                                        <line
-                                            x1="6"
-                                            y1="6"
-                                            x2="18"
-                                            y2="18"
-                                        ></line>
-                                    </svg>
+                                    <LuX className="w-5 h-5" />
                                 </button>
                             </div>
                         ))}
@@ -214,28 +187,7 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                             id="add-media-btn"
                             onClick={handleMediaClick}
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <rect
-                                    x="3"
-                                    y="3"
-                                    width="18"
-                                    height="18"
-                                    rx="2"
-                                    ry="2"
-                                ></rect>
-                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                <polyline points="21 15 16 10 5 21"></polyline>
-                            </svg>
+                            <LuImage className="w-5 h-5" />
                         </button>
                         <button
                             className={
@@ -243,7 +195,7 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                             }
                             onClick={() => insertSymbol("@")}
                         >
-                            @
+                            <LuAtSign className="w-5 h-5" />
                         </button>
 
                         <button
@@ -252,13 +204,13 @@ const AddPostForm = ({ currentUser }: { currentUser: IUser }) => {
                             }
                             onClick={() => insertSymbol("#")}
                         >
-                            #
+                            <LuHash className="w-5 h-5" />
                         </button>
                         <button
                             className="w-10 h-10 text-primary p-2 border border-black-500 rounded-lg hover:text-primary hover:border-primary"
                             onClick={toggleEmojiPicker}
                         >
-                            😊
+                            <span className="w-5 h-5">😊</span>
                         </button>
                         {showEmojiPicker && (
                             <div className="absolute top-12 z-50">

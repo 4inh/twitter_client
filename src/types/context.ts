@@ -1,5 +1,5 @@
 import { Friend, IUser } from "./auth";
-import { Message } from "./message";
+import { IMessagePayloadData, Message } from "./message";
 import { IEditPostPayloadData, IPost, IPostPayloadData, ITopTag } from "./post";
 
 export interface AuthContextType {
@@ -20,12 +20,13 @@ export interface ChatContextType {
     friends: Friend[];
     activeChat: Friend | null;
     messages: Message[];
-    sendMessage: (content: string, media?: string[]) => Promise<void>;
+    sendMessage: (payload: IMessagePayloadData) => Promise<void>;
     setActiveChat: (friend: Friend) => void;
 }
 
 export interface PostContextType {
     posts: IPost[];
+    setPosts: React.Dispatch<React.SetStateAction<IPost[]>>;
     loading: boolean;
     error: string | null;
     editPost: (postId: string, payload: IEditPostPayloadData) => Promise<void>;

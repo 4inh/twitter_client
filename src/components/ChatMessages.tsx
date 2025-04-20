@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { ChatContext } from "@/context/chat/ChatContext";
 import { AuthContext } from "@/context/auth/AuthContext";
+import { formatMessageTime } from "@/utils";
+import ImageList from "./ImageList ";
 
 const ChatMessages: React.FC = () => {
     const { messages, activeChat } = useContext(ChatContext);
@@ -51,42 +53,40 @@ const ChatMessages: React.FC = () => {
                         return (
                             <div
                                 key={message._id}
-                                className={`flex ${isCurrentUser
-                                    ? "justify-end"
-                                    : "justify-start"
-                                    }`}
+                                className={`flex ${
+                                    isCurrentUser
+                                        ? "justify-end"
+                                        : "justify-start"
+                                }`}
                             >
                                 <div
-                                    className={`max-w-xs md:max-w-md lg:max-w-lg rounded-lg px-4 py-2 ${isCurrentUser
-                                        ? "bg-primary text-white"
-                                        : "bg-white border"
-                                        }`}
+                                    className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                                        isCurrentUser
+                                            ? "bg-primary text-white"
+                                            : "bg-white border"
+                                    } ${
+                                        message.media &&
+                                        message.media?.length > 0 &&
+                                        "w-full"
+                                    }`}
                                 >
                                     <div>{message.content}</div>
                                     {message.media &&
-                                        message.media.length > 0 && (
-                                            <div className="mt-2 space-y-2">
-                                                {message.media.map(
-                                                    (mediaUrl, index) => (
-                                                        <img
-                                                            key={index}
-                                                            src={mediaUrl}
-                                                            alt="Media"
-                                                            className="rounded max-h-60 max-w-full"
-                                                        />
-                                                    )
-                                                )}
+                                        message.media?.length > 0 && (
+                                            <div className="mt-2">
+                                                <ImageList
+                                                    images={message.media}
+                                                />
                                             </div>
                                         )}
                                     <div
-                                        className={`text-xs mt-1 ${isCurrentUser
-                                            ? "text-gray-400"
-                                            : "text-gray-500"
-                                            }`}
+                                        className={`text-xs mt-1 ${
+                                            isCurrentUser
+                                                ? "text-gray-400"
+                                                : "text-gray-500"
+                                        }`}
                                     >
-                                        {new Date(
-                                            message.timestamp
-                                        ).toISOString()}
+                                        {formatMessageTime(message.timestamp)}
                                     </div>
                                 </div>
                             </div>

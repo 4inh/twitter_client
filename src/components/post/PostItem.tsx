@@ -21,6 +21,7 @@ import { Link, useNavigate } from "react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/Avatar";
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { PostContext } from "@/context/post/PostContext";
+import ImageList from "../ImageList ";
 
 function PostItem({ post, user }: { post: IPost; user: User | null }) {
     const [open, setOpen] = useState(false);
@@ -154,27 +155,15 @@ function PostItem({ post, user }: { post: IPost; user: User | null }) {
                 </Dialog>
             </div>
             <DisplayContentPost content={post.content} />
-            {post.media.map((source, index) => (
-                <div className="flex flex-col gap-2 overflow-hidden rounded-lg shadow-sm mb-2">
-                    <div key={`${source} ${index}`}>
-                        <img
-                            src={source}
-                            alt={source}
-                            className="w-full rounded-lg "
-                        />
-                    </div>
-                </div>
-            ))}
+            {post.media.length > 0 && <ImageList images={post.media} />}
+
             <div className="flex items-center justify-between ">
                 {/* Comments Button */}
-                <div className="flex gap-1" role="button">
-                    <button
-                        onClick={() => {
-                            console.log("Comment button clicked"); // Add your logic
-                        }}
-                    >
-                        Bình luận
-                    </button>
+                <div
+                    className="flex gap-1"
+                    // role="button"
+                >
+                    <button>Bình luận</button>
                     <p>{post.comments.length}</p>
                 </div>
 
